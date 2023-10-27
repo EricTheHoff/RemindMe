@@ -1,7 +1,9 @@
 import axios from 'axios'
 import Login from '../components/Login.jsx'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
+    const navigate = useNavigate()
 
     const loginEvent = async (e, loginData) => {
         e.preventDefault()
@@ -9,11 +11,12 @@ const LoginPage = () => {
 
         if(response.data.success) {
             console.log(`Login Successful`)
+            navigate('/reminders')
         }
     }
     return (
     <>
-        <h1>Log In</h1>
+        <h4>Please log in with your registered email and password.</h4>
         <Login userLogsIn={loginEvent}/>
     </>
   )

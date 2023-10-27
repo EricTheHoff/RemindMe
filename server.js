@@ -12,6 +12,15 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(session({ secret: 'asdhgqh4ir3h1213423', saveUninitialized: true, resave: false }))
 
+const loginRequired = (req, res, next) => {
+    if (!req.session.userId) {
+        res.status(401).json({ error: 'Unauthorized' })
+    } else {
+        next()
+    }
+}
+
 app.post('/authenticate', handlerFunctions.authenticate)
+app.post('/logout', loginRequired, handlerFunctions.logout)
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`))

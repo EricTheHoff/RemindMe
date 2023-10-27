@@ -12,6 +12,11 @@ const handlerFunctions = {
         } else {
             res.json({ success: false })
         }
+    },
+
+    logout: (req, res) => {
+        req.session.destroy()
+        res.json({ success: true })
     }
 }
 
