@@ -1,14 +1,13 @@
 import { useState } from 'react'
 
 
-const Login = ({ userLogsIn }) => {
+const NewAccount = ({ createAccount }) => {
     const [emailVal, setEmailVal] = useState('')
     const [passwordVal, setPasswordVal] = useState('')
 
-
   return (
     <form onSubmit={(e) => {
-        userLogsIn(e, {
+        createAccount(e, {
             email: emailVal,
             password: passwordVal
         })
@@ -24,15 +23,15 @@ const Login = ({ userLogsIn }) => {
 
         <label htmlFor='password'>Password</label>
         <input
-        type='password'
+        type='text'
         name='password'
         id='password'
         required
         onChange={(e) => setPasswordVal(e.target.value)}
         />
-        <button type='submit'>Log In</button>
+        <button type='submit'>Create Account</button>
     </form>
   )
 }
 
-export default Login
+export default NewAccount

@@ -17,6 +17,21 @@ const handlerFunctions = {
     logout: (req, res) => {
         req.session.destroy()
         res.json({ success: true })
+    },
+
+    createAccount: async (req, res) => {
+        const { email, password } = req.body
+        const newUser = await User.create({
+            email: email,
+            password: password
+        })
+
+        if(newUser) {
+            req.session.userId = newUser.userId
+            res.json({ success: true })
+        } else {
+            res.json({ success: false })
+        }
     }
 }
 
