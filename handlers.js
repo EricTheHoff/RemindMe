@@ -32,6 +32,22 @@ const handlerFunctions = {
         } else {
             res.json({ success: false })
         }
+    },
+
+    newReminder: async (req, res) => {
+        const { title, body, deliverTo, deliveryDate } = req.body
+        const newReminder = await Reminder.create({
+            title: title,
+            body: body,
+            deliverTo: deliverTo,
+            deliveryDate: deliveryDate
+        })
+
+        if(newReminder) {
+            res.json({ success: true })
+        } else {
+            res.json({ success: false })
+        }
     }
 }
 

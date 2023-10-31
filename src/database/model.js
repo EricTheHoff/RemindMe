@@ -45,14 +45,11 @@ Reminder.init(
             autoIncrement: true,
             primaryKey: true
         },
-        jobId: {
-            type: DataTypes.INTEGER
-        },
-        reminderTitle: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        reminderBody: {
+        body: {
             type: DataTypes.TEXT,
             allowNull: false
         },
@@ -84,7 +81,7 @@ Category.init(
             autoIncrement: true,
             primaryKey: true
         },
-        categoryName: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true

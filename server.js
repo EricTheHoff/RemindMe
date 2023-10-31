@@ -22,6 +22,7 @@ const loginRequired = (req, res, next) => {
 
 app.post('/authenticate', handlerFunctions.authenticate)
 app.post('/create_account', handlerFunctions.createAccount)
+app.post('/new_reminder', loginRequired, handlerFunctions.newReminder)
 app.post('/logout', loginRequired, handlerFunctions.logout)
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`))

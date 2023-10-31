@@ -1,4 +1,4 @@
-import { User, db } from "../src/database/model.js"
+import { User, Category, db } from "../src/database/model.js"
 
 console.log(`Syncing DB...`)
 
@@ -6,11 +6,29 @@ await db.sync({ force: true })
 console.log(`Seeding DB...`)
 
 let seedUsers = []
-const testUser = User.create({
-    email: 'test@test.com',
-    password: 'test'
-})
+    const testUser = User.create({
+        email: 'test@test.com',
+        password: 'test'
+    })
 seedUsers.push(testUser)
+
+let seedCategories = []
+    const chores = Category.create({
+        name: 'Chores'
+    })
+    const errands = Category.create({
+        name: 'Errands'
+    })
+    const appts = Category.create({
+        name: 'Appointments'
+    })
+    const specialOcc = Category.create({
+        name: 'Special Occassions'
+    })
+    const misc = Category.create({
+        name: 'Misc.'
+    })
+seedCategories.push(chores, errands, appts, specialOcc, misc)
 
 const usersInDB = await Promise.all(seedUsers)
 console.log(usersInDB)

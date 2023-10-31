@@ -26,10 +26,16 @@ const Root = () => {
         <nav>
           <ul>
             <li>
-              <h4>You are logged in.</h4>
+              <NavLink to='/reminders'>My Reminders</NavLink>
             </li>
             <li>
-              <NavLink to='/reminders'>My Reminders</NavLink>
+              <NavLink to='/new_reminder'>New Reminder</NavLink>
+            </li>
+            <li>
+              <NavLink to='/account'>My Account</NavLink>
+            </li>
+            <li>
+              <NavLink to='/about'>About</NavLink>
             </li>
             <li>
               <Logout userLogsOut={logoutEvent}/>
