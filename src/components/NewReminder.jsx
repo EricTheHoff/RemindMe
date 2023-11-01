@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const NewReminder = ({ createReminder }) => {
     const [title, setTitle] = useState('')
     const [deliverTo, setDeliverTo] = useState('')
     const [message, setMessage] = useState('')
     const [deliveryDate, setDeliveryDate] = useState(null)
-    let categorySelection = document.getElementById('reminder_category')
+    const activeId = useSelector((state) => state.activeUser)
+    const categorySelection = document.getElementById('reminder_category')
 
   return (
     <form onSubmit={(e) => {
@@ -14,7 +16,8 @@ const NewReminder = ({ createReminder }) => {
             body: message,
             deliverTo: deliverTo,
             deliveryDate: deliveryDate,
-            category: categorySelection.value
+            category: categorySelection.value,
+            userId: activeId
         })
     }}>
         <label htmlFor='title'>Title:</label>
@@ -55,6 +58,7 @@ const NewReminder = ({ createReminder }) => {
 
         <label htmlFor='category'>Category:</label>
         <select name='category' id='reminder_category'>
+          <option disabled defaultValue hidden>-Choose One-</option>
           <option value='1'>Chores</option>
           <option value='2'>Errands</option>
           <option value='3'>Appointments</option>

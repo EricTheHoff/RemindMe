@@ -35,13 +35,14 @@ const handlerFunctions = {
     },
 
     newReminder: async (req, res) => {
-        const { title, body, deliverTo, deliveryDate, category } = req.body
+        const { title, body, deliverTo, deliveryDate, category, userId } = req.body
         const newReminder = await Reminder.create({
             title: title,
             body: body,
             deliverTo: deliverTo,
             deliveryDate: deliveryDate,
-            categoryId: category
+            categoryId: category,
+            userId: userId
         })
 
         if(newReminder) {
@@ -60,6 +61,11 @@ const handlerFunctions = {
         } else {
             res.json({ success: false })
         }
+    },
+
+    getId: async (req, res) => {
+        const id = req.session.userId
+        res.json({ id: id })
     }
 }
 
