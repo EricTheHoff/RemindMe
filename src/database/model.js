@@ -93,10 +93,10 @@ Category.init(
     }
 )
 
-User.hasMany(Category, { foreignKey: 'userId' })
-Category.belongsTo(User, { foreignKey: 'userId' })
+User.hasMany(Reminder, { foreignKey: 'userId' })
+Reminder.belongsTo(User, { foreignKey: 'userId' })
 
-Reminder.hasMany(Category, { foreignKey: 'reminderId' })
-Category.belongsTo(Reminder, { foreignKey: 'reminderId' })
+Category.hasMany(Reminder, { foreignKey: 'categoryId' })
+Reminder.belongsTo(Category, { foreignKey: 'categoryId' })
 
 export { db, User, Reminder, Category }

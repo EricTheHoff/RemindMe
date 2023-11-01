@@ -23,7 +23,7 @@ let seedCategories = []
         name: 'Appointments'
     })
     const specialOcc = Category.create({
-        name: 'Special Occassions'
+        name: 'Special Occasions'
     })
     const misc = Category.create({
         name: 'Misc.'
