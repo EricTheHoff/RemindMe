@@ -22,6 +22,7 @@ const loginRequired = (req, res, next) => {
 
 app.post('/authenticate', handlerFunctions.authenticate)
 app.post('/create_account', handlerFunctions.createAccount)
+app.post('/check_user', handlerFunctions.checkUser)
 app.post('/new_reminder', loginRequired, handlerFunctions.newReminder)
 app.post('/logout', loginRequired, handlerFunctions.logout)
 

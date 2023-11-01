@@ -48,6 +48,17 @@ const handlerFunctions = {
         } else {
             res.json({ success: false })
         }
+    },
+
+    checkUser: async (req, res) => {
+        const { email, password } = req.body
+        const user = await User.findOne({ where: { email: email } })
+
+        if(user) {
+            res.json({ success: true })
+        } else {
+            res.json({ success: false })
+        }
     }
 }
 

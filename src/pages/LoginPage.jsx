@@ -21,12 +21,19 @@ const LoginPage = () => {
 
     const newAccountEvent = async (e, newAccountData) => {
         e.preventDefault()
-        const response = await axios.post('/create_account', newAccountData)
+        const checkUser = await axios.post('/check_user', newAccountData)
 
-        if(response.data.success) {
-            console.log(`Account Created Successfully`)
-            dispatch({ type: 'Logged In' })
-            navigate('/reminders')
+        if(checkUser.data.success) {
+            alert(`There is already an account registered to that email.`)
+
+        } else {
+            const response = await axios.post('/create_account', newAccountData)
+    
+            if(response.data.success) {
+                console.log(`Account Created Successfully`)
+                dispatch({ type: 'Logged In' })
+                navigate('/reminders')
+            }
         }
     }
 
