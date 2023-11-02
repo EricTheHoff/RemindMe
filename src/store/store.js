@@ -6,10 +6,3 @@ const store = configureStore({
 })
 
 export default store
-
-// const exampleStore = configureStore({
-//     reducer: {
-//         reducerFunc1,
-//         reducerFunc2
-//     }
-// })

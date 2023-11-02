@@ -27,21 +27,4 @@ const loggedIn = (state = initialState, action) => {
     }
 }
 
-// const loggedInUser = (state = initialState, action) => {
-//     switch (action.type) {
-//         case 'Active User':
-//             return {
-//                 ...state,
-//                 activeUser: getUserId()
-//             }
-//         case 'Inactive User':
-//             return {
-//                 ...state,
-//                 activeUser: null
-//             }
-//         default:
-//             return state
-//     }
-// }
-
 export default loggedIn

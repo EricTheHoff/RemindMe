@@ -14,6 +14,12 @@ const handlerFunctions = {
         }
     },
 
+    saveToSession: (req, res) => {
+        const { auth } = req.body
+        req.session.auth = auth
+        res.json({ success: true })
+    },
+
     logout: (req, res) => {
         req.session.destroy()
         res.json({ success: true })
@@ -60,6 +66,13 @@ const handlerFunctions = {
             res.json({ success: true })
         } else {
             res.json({ success: false })
+        }
+    },
+
+    checkStatus: async (req, res) => {
+        if(req.session.userId) {
+            const user = await User.findByPk(req.session.userId)
+            res.send({ email: user.email })
         }
     },
 

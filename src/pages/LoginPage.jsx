@@ -11,10 +11,13 @@ const LoginPage = () => {
     const loginEvent = async (e, loginData) => {
         e.preventDefault()
         const response = await axios.post('/authenticate', loginData)
+        const activeId = await axios.get('/get_id')
+        
 
         if(response.data.success) {
             console.log(`Login Successful`)
             dispatch({ type: 'Logged In' })
+            dispatch({ type: 'Active User', payload: activeId.data.id })
             navigate('/reminders')
         }
     }
@@ -28,10 +31,12 @@ const LoginPage = () => {
 
         } else {
             const response = await axios.post('/create_account', newAccountData)
+            const activeId = await axios.get('/get_id')
     
             if(response.data.success) {
                 console.log(`Account Created Successfully`)
                 dispatch({ type: 'Logged In' })
+                dispatch({ type: 'Active User', payload: activeId.data.id })
                 navigate('/reminders')
             }
         }

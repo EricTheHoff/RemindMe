@@ -1,12 +1,24 @@
 import axios from 'axios'
 import Logout from '../components/Logout'
+import { useEffect } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Root = () => {
+const RootPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const auth = useSelector((state) => state.auth)
+
+  const saveToSession = async () => {
+    await axios.get('/check_status')
+  }
+
+  useEffect(() => {
+    saveToSession()
+    .then(() => {
+      dispatch({ type: 'Logged In'})
+    })
+  },[])
 
   const logoutEvent = async (e) => {
     e.preventDefault()
@@ -15,7 +27,8 @@ const Root = () => {
     if(response.data.success) {
       console.log(`Logout Successful`)
       dispatch({ type: 'Logged Out' })
-      navigate('/authenticate')
+      dispatch({ type: 'Inactive User' })
+      navigate('/')
     }
   }
 
@@ -68,4 +81,4 @@ const Root = () => {
   }
 }
 
-export default Root
+export default RootPage
