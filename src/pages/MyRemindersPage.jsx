@@ -27,6 +27,7 @@ const MyRemindersPage = () => {
             deliverTo={deliverTo}
             deliveryDate={deliveryDate}
             category={categoryId}
+            isEditing={isEditing}
             />
         )
 

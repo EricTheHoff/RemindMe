@@ -1,6 +1,28 @@
 import { useState } from 'react'
+import ModeButtons from './ModeButtons.jsx'
 
-const Reminder = ({ key, id, title, body, deliverTo, deliveryDate, category }) => {
+const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, isEditing }) => {
+    const [editMode, setEditMode] = useState(isEditing)
+    const [titleVal, setTitleVal] = useState(title)
+    const [bodyVal, setBodyVal] = useState(body)
+    const [deliverToVal, setDeliverToVal] = useState(deliverTo)
+    const [deliveryDateVal, setDeliveryDateVal] = useState(deliveryDate)
+    const [categoryVal, setCategoryVal] = useState(category)
+
+    const changeMode = async () => {
+        const reminder = {
+            id: id,
+            title: titleVal,
+            body: bodyVal,
+            deliverTo: deliverToVal,
+            deliveryDate: deliveryDateVal,
+            category: categoryVal
+        }
+        const response = await axios.post('/edit_reminder', reminder)
+        console.log(response.data)
+        setEditMode(!editMode)
+    }
+
     
     if (category === 1) {
         category = 'Chores'
@@ -32,6 +54,13 @@ const Reminder = ({ key, id, title, body, deliverTo, deliveryDate, category }) =
         <td>
             {category}
         </td>
+
+        <ModeButtons
+        isEditing={editMode}
+        changeMode={changeMode}
+        id={id}
+        />
+        
     </tr>
     </>
   )
