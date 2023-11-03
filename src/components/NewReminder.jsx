@@ -58,7 +58,7 @@ const NewReminder = ({ createReminder }) => {
 
         <label htmlFor='category'>Category:</label>
         <select name='category' id='reminder_category'>
-          <option disabled defaultValue hidden>-Choose One-</option>
+          <option disabled defaultValue>-Choose One-</option>
           <option value='1'>Chores</option>
           <option value='2'>Errands</option>
           <option value='3'>Appointments</option>

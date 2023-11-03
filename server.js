@@ -26,6 +26,7 @@ app.post('/check_user', handlerFunctions.checkUser)
 app.get('/get_id', handlerFunctions.getId)
 app.get('/check_status', handlerFunctions.checkStatus)
 app.post('/save_session', handlerFunctions.saveToSession)
+app.get('/get_reminders', loginRequired, handlerFunctions.getReminders)
 app.post('/new_reminder', loginRequired, handlerFunctions.newReminder)
 app.post('/logout', loginRequired, handlerFunctions.logout)
 

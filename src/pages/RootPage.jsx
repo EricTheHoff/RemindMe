@@ -15,8 +15,10 @@ const RootPage = () => {
 
   useEffect(() => {
     saveToSession()
-    .then(() => {
+    .then( async () => {
       dispatch({ type: 'Logged In'})
+      const activeId = await axios.get('/get_id')
+      dispatch({ type: 'Active User', payload: activeId.data.id })
     })
   },[])
 
