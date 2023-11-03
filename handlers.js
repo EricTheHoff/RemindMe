@@ -82,12 +82,11 @@ const handlerFunctions = {
     },
 
     getReminders: async (req, res) => {
-        let reminders = []
         let id = req.session.userId
         const remindersFromDB = await Reminder.findAll({ where: { userId: id }})
 
-        reminders.push(remindersFromDB)
-        res.send(reminders)
+        // reminders.push(remindersFromDB)
+        res.send(remindersFromDB)
     }
 }
 
