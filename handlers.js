@@ -83,10 +83,57 @@ const handlerFunctions = {
 
     getReminders: async (req, res) => {
         let id = req.session.userId
-        const remindersFromDB = await Reminder.findAll({ where: { userId: id }})
+        const remindersFromDB = await Reminder.findAll({ where: { userId: id } })
 
-        // reminders.push(remindersFromDB)
         res.send(remindersFromDB)
+    },
+
+    editReminder: async (req, res) => {
+        const { id } = req.params
+        const reminder = await Reminder.findOne({ where: { reminderId: id } })
+
+        res.send(reminder)
+    },
+
+    updateReminder: async (req, res) => {
+        const { id } = req.params
+        const { title, body, deliverTo, deliveryDate, category } = req.body
+        const reminder = await Reminder.findOne({ where: { reminderId: id } })
+
+        reminder.title = title
+        reminder.body = body
+        reminder.deliverTo = deliverTo
+        reminder.deliveryDate = deliveryDate
+        reminder.categoryId = category
+
+        await reminder.save()
+        res.json({ success: true })
+    },
+
+    deleteReminder: async (req, res) => {
+        const { id } = req.params
+        const reminder = await Reminder.findOne({ where: { reminderId: id } })
+        await reminder.destroy()
+
+        res.json({ success: true })
+    },
+
+    getUser: async (req, res) => {
+        let id = req.session.userId
+        const user = await User.findOne({ where: { userId: id } })
+
+        res.send(user)
+    },
+
+    editAccount: async (req, res) => {
+        const { id } = req.params
+        const { email } = req.body
+        const user = await User.findOne({ where: { userId: id } })
+
+        user.email = email
+
+        await user.save()
+        res.json({ success: true })
     }
 }
 

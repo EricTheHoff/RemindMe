@@ -11,6 +11,13 @@ const MyRemindersPage = () => {
     reminders = response.data
   }
 
+  const deleteMode = async (id) => {
+    await axios.delete(`/delete_reminder/${id}`)
+    const response = await axios.get('/get_reminders')
+
+    setListedReminders(response.data)
+}
+
   useEffect(() => {
     getReminders()
     .then(() => {
@@ -27,7 +34,7 @@ const MyRemindersPage = () => {
             deliverTo={deliverTo}
             deliveryDate={deliveryDate}
             category={categoryId}
-            isEditing={isEditing}
+            deleteMode={deleteMode}
             />
         )
 

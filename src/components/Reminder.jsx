@@ -1,8 +1,14 @@
 import { useState } from 'react'
+import axios from 'axios'
 import ModeButtons from './ModeButtons.jsx'
+import Body from './reminder_components/Body.jsx'
+import Category from './reminder_components/Category.jsx'
+import DeliverTo from './reminder_components/DeliverTo.jsx'
+import DeliveryDate from './reminder_components/DeliveryDate.jsx'
+import Title from './reminder_components/Title.jsx'
 
-const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, isEditing }) => {
-    const [editMode, setEditMode] = useState(isEditing)
+const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, deleteMode }) => {
+    const [editMode, setEditMode] = useState(false)
     const [titleVal, setTitleVal] = useState(title)
     const [bodyVal, setBodyVal] = useState(body)
     const [deliverToVal, setDeliverToVal] = useState(deliverTo)
@@ -11,53 +17,64 @@ const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, isEditin
 
     const changeMode = async () => {
         const reminder = {
-            id: id,
             title: titleVal,
             body: bodyVal,
             deliverTo: deliverToVal,
             deliveryDate: deliveryDateVal,
             category: categoryVal
         }
-        const response = await axios.post('/edit_reminder', reminder)
-        console.log(response.data)
-        setEditMode(!editMode)
-    }
-
-    
-    if (category === 1) {
-        category = 'Chores'
-    } else if (category === 2) {
-        category = 'Errands'
-    } else if (category === 3) {
-        category = 'Appointments'
-    } else if (category === 4) {
-        category = 'Special Occasions'
-    } else if (category === 5) {
-        category = 'Misc.'
+        await axios.get(`/reminders/${id}`)
+        const response = await axios.post(`/update_reminder/${id}`, reminder)
+        if (response.data.success) {
+            setEditMode(!editMode)
+        } else {
+            alert(`Something went wrong: ${response.data.error}`)
+        }
     }
 
   return (
     <>
     <tr>
         <td>
-            {title}
+            <Title
+            val={titleVal}
+            setVal={setTitleVal}
+            isEditing={editMode}
+            />
         </td>
         <td>
-            {body}
+            <Body
+            val={bodyVal}
+            setVal={setBodyVal}
+            isEditing={editMode}
+            />
         </td>
         <td>
-            {deliverTo}
+            <DeliverTo
+            val={deliverToVal}
+            setVal={setDeliverToVal}
+            isEditing={editMode}
+            />
         </td>
         <td>
-            {deliveryDate}
+            <DeliveryDate
+            val={deliveryDateVal}
+            setVal={setDeliveryDateVal}
+            isEditing={editMode}
+            />
         </td>
         <td>
-            {category}
+            <Category
+            val={categoryVal}
+            setVal={setCategoryVal}
+            isEditing={editMode}
+            />
         </td>
 
         <ModeButtons
         isEditing={editMode}
         changeMode={changeMode}
+        deleteMode={deleteMode}
         id={id}
         />
         

@@ -1,6 +1,6 @@
 
 
-const ModeButtons = ({ isEditing, changeMode, id }) => {
+const ModeButtons = ({ isEditing, changeMode, deleteMode, id }) => {
 
   return isEditing ? (
     <td>
@@ -9,7 +9,7 @@ const ModeButtons = ({ isEditing, changeMode, id }) => {
   ) : (
     <td>
         <button onClick={changeMode}>Edit</button>
-        <button>Delete</button>
+        <button onClick={() => deleteMode(id)}>Delete</button>
     </td>
   )
 }
