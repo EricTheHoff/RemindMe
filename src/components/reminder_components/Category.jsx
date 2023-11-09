@@ -1,11 +1,6 @@
-import { useEffect } from 'react'
-
 const Category = ({ val, setVal, isEditing }) => {
-
-    useEffect(() => {
-        console.log(`Component Rendered: Category`)
-    })
     
+    val = +val
     switch (val) {
         case 1:
             val = 'Chores'

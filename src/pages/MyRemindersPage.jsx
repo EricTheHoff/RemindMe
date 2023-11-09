@@ -3,8 +3,8 @@ import axios from 'axios'
 import Reminder from '../components/Reminder.jsx'
 
 const MyRemindersPage = () => {
-  let reminders
   const [listedReminders, setListedReminders] = useState([])
+  let reminders
 
   const getReminders = async () => {
     const response = await axios.get('/get_reminders')

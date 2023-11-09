@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import emailjs from '@emailjs/browser'
-// import schedule from 'node-schedule'
 
 const NewReminder = ({ createReminder }) => {
     const [title, setTitle] = useState('')
@@ -11,48 +10,51 @@ const NewReminder = ({ createReminder }) => {
     const activeId = useSelector((state) => state.activeUser)
     const categorySelection = document.getElementById('reminder_category')
 
-    // const sendReminder = (e) => {
-    //   e.preventDefault()
+    
+    const scheduleReminder = (e) => {
+      e.preventDefault()
+      
+      let categoryName
+      switch (categorySelection.value) {
+        case '1':
+          categoryName = 'Chores'
+          break
+        case '2':
+          categoryName = 'Errands'
+          break
+        case '3':
+          categoryName = 'Appointments'
+          break
+        case '4':
+          categoryName = 'Special Occasions'
+          break
+        case '5':
+          categoryName = 'Misc.'
+      }
 
-    //   emailjs.send("service_dlkmluu","template_ani6abo", {
-    //     title: title,
-    //     message: message,
-    //     category: categorySelection.value,
-    //     deliverTo: deliverTo
-    //   }, "I2V2mOJVRUQv4kj5Q")
-    //   .then(() => {
-    //     alert(`Email has been sent!`)
-    //   })
-    //   .catch((error) => {
-    //     alert(`Something went wrong...`)
-    //     console.log(error.text)
-    //   })
+      const dateForDelivery = new Date(deliveryDate)
+      const parsedDelivery = Date.parse(dateForDelivery)
+      const today = new Date()
+      const parsedToday = Date.parse(today)
+      const timeoutVal = parsedDelivery - parsedToday
 
-    //   e.target.reset()
-    // }
+      setTimeout(() => {
+        emailjs.send("service_dlkmluu", "template_ani6abo", {
+          title: title,
+          message: message,
+          category: categoryName,
+          deliverTo: deliverTo
+        }, "I2V2mOJVRUQv4kj5Q")
+        .then(() => {
+          console.log(`Email has been sent to ${deliverTo}`)
+        })
+        .catch((error) => {
+          console.log(`The following error has occurred: ${error}`)
+        })
+      }, timeoutVal)
 
-    // const scheduleReminder = (e) => {
-    //   e.preventDefault()
-
-    //   const delivery = new Date(deliveryDate)
-
-    //   schedule.scheduleJob(delivery, () => {
-    //     emailjs.send("service_dlkmluu","template_ani6abo", {
-    //       title: title,
-    //       message: message,
-    //       category: categorySelection.value,
-    //       deliverTo: deliverTo
-    //     }, "I2V2mOJVRUQv4kj5Q")
-    //     .then(() => {
-    //       alert(`Email has been sent!`)
-    //     })
-    //     .catch((error) => {
-    //       alert(`Something went wrong: ${error}`)
-    //     })
-    //   })
-
-    //   e.target.reset()
-    // }
+      e.target.reset()
+    }
 
   return (
     <form onSubmit={(e) => {
@@ -64,7 +66,7 @@ const NewReminder = ({ createReminder }) => {
             category: categorySelection.value,
             userId: activeId
         })
-        // scheduleReminder(e)
+        scheduleReminder(e)
     }}>
         <label htmlFor='title'>Title:</label>
         <input
@@ -116,5 +118,6 @@ const NewReminder = ({ createReminder }) => {
     </form>
   )
 }
+  
 
 export default NewReminder
