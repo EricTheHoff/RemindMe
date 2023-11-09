@@ -1,5 +1,11 @@
+import { useEffect } from 'react'
+
 const Category = ({ val, setVal, isEditing }) => {
 
+    useEffect(() => {
+        console.log(`Component Rendered: Category`)
+    })
+    
     switch (val) {
         case 1:
             val = 'Chores'
@@ -16,12 +22,12 @@ const Category = ({ val, setVal, isEditing }) => {
         case 5:
             val = 'Misc.'
     }
-
+    
     if (isEditing === true) {
         return (
             <>
                 <select name='category' id='reminder_category' onChange={(e) => setVal(e.target.value)}>
-                    <option disabled defaultValue>-Choose One-</option>
+                    <option disabled selected={true}>-Choose One-</option>
                     <option value='1'>Chores</option>
                     <option value='2'>Errands</option>
                     <option value='3'>Appointments</option>

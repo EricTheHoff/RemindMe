@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import ModeButtons from './ModeButtons.jsx'
 import Body from './reminder_components/Body.jsx'
@@ -14,17 +14,10 @@ const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, deleteMo
     const [deliverToVal, setDeliverToVal] = useState(deliverTo)
     const [deliveryDateVal, setDeliveryDateVal] = useState(deliveryDate)
     const [categoryVal, setCategoryVal] = useState(category)
-    // const delivery = new Date(deliveryDateVal).toLocaleString()
 
-    // const deleteMode = async (id) => {
-    //     const response = await axios.delete(`/delete_reminder/${id}`)
-
-    //     if(response.data.success) {
-    //         alert(`Reminder deleted`)
-    //     } else {
-    //         console.log(response.data.error)
-    //     }
-    // }
+    useEffect(() => {
+        console.log(`Component Rendered: Reminder`)
+    },[])
 
     const changeMode = async () => {
         const reminder = {
@@ -34,7 +27,7 @@ const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, deleteMo
             deliveryDate: deliveryDateVal,
             category: categoryVal
         }
-        await axios.get(`/reminders/${id}`)
+        // await axios.get(`/reminders/${id}`)
         const response = await axios.post(`/update_reminder/${id}`, reminder)
         if (response.data.success) {
             setEditMode(!editMode)

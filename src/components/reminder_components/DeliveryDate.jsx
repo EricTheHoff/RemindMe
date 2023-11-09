@@ -1,19 +1,19 @@
 const DeliveryDate = ({ val, setVal, isEditing }) => {
-    // const delivery = val.toLocaleString()
+    const delivery = new Date(val).toLocaleString()
+
     if (isEditing === true) {
         return (
             <>
                 <input
                 type='datetime-local'
                 value={val}
-                onChange={(e) => setVal(e.target.value)}
-                />
+                onChange={(e) => setVal(e.target.value)}/>
             </>
         )
     } else {
         return (
             <>
-                {val}
+                {delivery}
             </>
         )
     }

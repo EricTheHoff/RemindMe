@@ -9,7 +9,6 @@ const MyRemindersPage = () => {
   const getReminders = async () => {
     const response = await axios.get('/get_reminders')
     reminders = response.data
-    console.log(reminders)
   }
 
   const deleteMode = async (reminderId) => {
@@ -46,12 +45,12 @@ const MyRemindersPage = () => {
 }
 
   useEffect(() => {
+    console.log(`Component Rendered: MyRemindersPage`)
     getReminders()
     .then(() => {
       let flatData = reminders.flat()
       let mapResults = flatData.map((el) => {
         const { body, categoryId, deliverTo, deliveryDate, reminderId, title } = el
-        console.log(typeof(deliveryDate))
         const delivery = new Date(deliveryDate).toLocaleString()
     
         return (
