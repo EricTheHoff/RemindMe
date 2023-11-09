@@ -6,8 +6,6 @@ await db.sync({ force: true })
 console.log(`Seeding DB...`)
 
 let seedUsers = []
-
-
 const testUser = User.create({
     email: 'test@test.com',
     password: 'test'
@@ -15,8 +13,6 @@ const testUser = User.create({
 seedUsers.push(testUser)
 
 let seedCategories = []
-
-
 const chores = Category.create({
     name: 'Chores'
 })

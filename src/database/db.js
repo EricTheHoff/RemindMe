@@ -8,7 +8,12 @@ const connectToDB = async (dbURI) => {
         define: {
             underscored: true,
             timestamps: false
-        }
+        },
+        dialect: 'postgres',
+        dialectOptions: {
+            useUTC: false
+        },
+        timezone: '-07:00'
     })
 
     try {

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import emailjs from '@emailjs/browser'
 
 const NewReminder = ({ createReminder }) => {
     const [title, setTitle] = useState('')
@@ -8,6 +9,26 @@ const NewReminder = ({ createReminder }) => {
     const [deliveryDate, setDeliveryDate] = useState(null)
     const activeId = useSelector((state) => state.activeUser)
     const categorySelection = document.getElementById('reminder_category')
+
+    // const sendReminder = (e) => {
+    //   e.preventDefault()
+
+    //   emailjs.send("service_dlkmluu","template_ani6abo", {
+    //     title: title,
+    //     message: message,
+    //     category: categorySelection.value,
+    //     deliverTo: deliverTo
+    //   }, "I2V2mOJVRUQv4kj5Q")
+    //   .then(() => {
+    //     alert(`Email has been sent!`)
+    //   })
+    //   .catch((error) => {
+    //     alert(`Something went wrong...`)
+    //     console.log(error.text)
+    //   })
+
+    //   e.target.reset()
+    // }
 
   return (
     <form onSubmit={(e) => {
@@ -19,6 +40,7 @@ const NewReminder = ({ createReminder }) => {
             category: categorySelection.value,
             userId: activeId
         })
+        // sendReminder(e)
     }}>
         <label htmlFor='title'>Title:</label>
         <input

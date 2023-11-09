@@ -1,4 +1,5 @@
 const DeliveryDate = ({ val, setVal, isEditing }) => {
+    // const delivery = val.toLocaleString()
     if (isEditing === true) {
         return (
             <>

@@ -9,13 +9,40 @@ const MyRemindersPage = () => {
   const getReminders = async () => {
     const response = await axios.get('/get_reminders')
     reminders = response.data
+    console.log(reminders)
   }
 
-  const deleteMode = async (id) => {
-    await axios.delete(`/delete_reminder/${id}`)
-    const response = await axios.get('/get_reminders')
+  const deleteMode = async (reminderId) => {
+    const deletion = await axios.delete(`/delete_reminder/${reminderId}`)
 
-    setListedReminders(response.data)
+    if(deletion.data.success) {
+      alert(`Reminder deleted.`)
+    } else {
+      console.log(deletion.data.error)
+    }
+
+    const response = await axios.get('/get_reminders')
+    reminders = response.data
+    let flatData = reminders.flat()
+    let mapResults = flatData.map((el) => {
+      const { body, categoryId, deliverTo, deliveryDate, reminderId, title } = el
+      const delivery = new Date(deliveryDate).toLocaleString()
+  
+      return (
+          <Reminder
+          key={reminderId}
+          id={reminderId}
+          title={title}
+          body={body}
+          deliverTo={deliverTo}
+          deliveryDate={delivery}
+          category={categoryId}
+          deleteMode={deleteMode}
+          />
+      )
+
+    })
+    setListedReminders(mapResults)
 }
 
   useEffect(() => {
@@ -24,6 +51,8 @@ const MyRemindersPage = () => {
       let flatData = reminders.flat()
       let mapResults = flatData.map((el) => {
         const { body, categoryId, deliverTo, deliveryDate, reminderId, title } = el
+        console.log(typeof(deliveryDate))
+        const delivery = new Date(deliveryDate).toLocaleString()
     
         return (
             <Reminder
@@ -32,7 +61,7 @@ const MyRemindersPage = () => {
             title={title}
             body={body}
             deliverTo={deliverTo}
-            deliveryDate={deliveryDate}
+            deliveryDate={delivery}
             category={categoryId}
             deleteMode={deleteMode}
             />
@@ -47,16 +76,18 @@ const MyRemindersPage = () => {
     <>
     <h3>My Reminders</h3>
       <table>
-        <tr>
-          <th>Title</th>
-          <th>Message</th>
-          <th>Deliver To</th>
-          <th>Delivery Time</th>
-          <th>Category</th>
-        </tr>
         <tbody>
-          {listedReminders}
+          <tr>
+            <th>Title</th>
+            <th>Message</th>
+            <th>Deliver To</th>
+            <th>Delivery Time</th>
+            <th>Category</th>
+          </tr>
         </tbody>
+      <tbody>
+        {listedReminders}
+      </tbody>
       </table>
     </>
   )

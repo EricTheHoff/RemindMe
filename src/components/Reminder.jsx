@@ -14,6 +14,17 @@ const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, deleteMo
     const [deliverToVal, setDeliverToVal] = useState(deliverTo)
     const [deliveryDateVal, setDeliveryDateVal] = useState(deliveryDate)
     const [categoryVal, setCategoryVal] = useState(category)
+    // const delivery = new Date(deliveryDateVal).toLocaleString()
+
+    // const deleteMode = async (id) => {
+    //     const response = await axios.delete(`/delete_reminder/${id}`)
+
+    //     if(response.data.success) {
+    //         alert(`Reminder deleted`)
+    //     } else {
+    //         console.log(response.data.error)
+    //     }
+    // }
 
     const changeMode = async () => {
         const reminder = {
