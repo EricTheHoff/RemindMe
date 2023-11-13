@@ -11,6 +11,11 @@ const MyRemindersPage = () => {
     reminders = response.data
   }
 
+//   const emailsToBeSent = async () => {
+//     const response = await axios.get('/emails_to_send')
+//     return response.data
+// }
+
   const deleteMode = async (reminderId) => {
     const deletion = await axios.delete(`/delete_reminder/${reminderId}`)
 
@@ -93,3 +98,4 @@ const MyRemindersPage = () => {
 }
 
 export default MyRemindersPage
+// export {emailsToBeSent}

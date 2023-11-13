@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import emailjs from '@emailjs/browser'
+// import axios from 'axios'
+// import emailjs from '@emailjs/browser'
 
 const NewReminder = ({ createReminder }) => {
     const [title, setTitle] = useState('')
@@ -11,50 +12,57 @@ const NewReminder = ({ createReminder }) => {
     const categorySelection = document.getElementById('reminder_category')
 
     
-    const scheduleReminder = (e) => {
-      e.preventDefault()
-      
-      let categoryName
-      switch (categorySelection.value) {
-        case '1':
-          categoryName = 'Chores'
-          break
-        case '2':
-          categoryName = 'Errands'
-          break
-        case '3':
-          categoryName = 'Appointments'
-          break
-        case '4':
-          categoryName = 'Special Occasions'
-          break
-        case '5':
-          categoryName = 'Misc.'
-      }
+    // const scheduleReminder = (e) => {
+    //   e.preventDefault()
 
-      const dateForDelivery = new Date(deliveryDate)
-      const parsedDelivery = Date.parse(dateForDelivery)
-      const today = new Date()
-      const parsedToday = Date.parse(today)
-      const timeoutVal = parsedDelivery - parsedToday
+    //   const dateForDelivery = new Date(deliveryDate)
+    //   const parsedDelivery = Date.parse(dateForDelivery)
+    //   const today = new Date()
+    //   const parsedToday = Date.parse(today)
+    //   const timeoutVal = parsedDelivery - parsedToday
 
-      setTimeout(() => {
-        emailjs.send("service_dlkmluu", "template_ani6abo", {
-          title: title,
-          message: message,
-          category: categoryName,
-          deliverTo: deliverTo
-        }, "I2V2mOJVRUQv4kj5Q")
-        .then(() => {
-          console.log(`Email has been sent to ${deliverTo}`)
-        })
-        .catch((error) => {
-          console.log(`The following error has occurred: ${error}`)
-        })
-      }, timeoutVal)
+    //   setTimeout(async () => {
+    //     const reminderData = {
+    //       title: title,
+    //       category: categorySelection.value
+    //     }
+    //     const response = await axios.post('/check_reminder', reminderData)
 
-      e.target.reset()
-    }
+    //     if(response.data.success) {
+    //       const updatedReminder = await axios.post('/updated_reminder', reminderData)
+    //       emailjs.send("service_dlkmluu", "template_ani6abo", {
+    //         title: title,
+    //         message: updatedReminder.data.message,
+    //         category: updatedReminder.data.category,
+    //         deliverTo: updatedReminder.data.deliverTo
+    //       }, "I2V2mOJVRUQv4kj5Q")
+    //       .then(() => {
+    //         console.log(`Email has been sent to ${deliverTo}`)
+    //         axios.post('/delete_sent', reminderData)
+    //       })
+    //       .catch((error) => {
+    //         console.log(`The following error has occurred: ${error}`)
+    //       })
+    //     }
+    //   }, timeoutVal)
+
+    //   e.target.reset()
+    // }
+
+    // const sendEmail = async (e) => {
+    //   e.preventDefault()
+    //   const reminderData = {
+    //     title: title,
+    //     message: message,
+    //     category: categorySelection.value,
+    //     deliverTo: deliverTo
+    //   }
+
+    //   const response = await axios.post('/test', reminderData)
+    //   if(response.data.success) {
+    //     console.log(`Email has been sent.`)
+    //   }
+    // }
 
   return (
     <form onSubmit={(e) => {
@@ -66,7 +74,8 @@ const NewReminder = ({ createReminder }) => {
             category: categorySelection.value,
             userId: activeId
         })
-        scheduleReminder(e)
+        // scheduleReminder(e)
+        // sendEmail(e)
     }}>
         <label htmlFor='title'>Title:</label>
         <input

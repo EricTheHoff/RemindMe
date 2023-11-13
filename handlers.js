@@ -1,5 +1,5 @@
 import session from 'express-session'
-import { User, Reminder } from './src/database/model.js'
+import { User, Reminder, Category } from './src/database/model.js'
 
 const handlerFunctions = {
     authenticate: async (req, res) => {
@@ -42,17 +42,23 @@ const handlerFunctions = {
 
     newReminder: async (req, res) => {
         const { title, body, deliverTo, deliveryDate, category, userId } = req.body
-        const newReminder = await Reminder.create({
-            title: title,
-            body: body,
-            deliverTo: deliverTo,
-            deliveryDate: deliveryDate,
-            categoryId: category,
-            userId: userId
-        })
+        const doesReminderExist = await Reminder.findOne({ where: { title: title } })
 
-        if(newReminder) {
-            res.json({ success: true })
+        if(!doesReminderExist) {
+            const newReminder = await Reminder.create({
+                title: title,
+                body: body,
+                deliverTo: deliverTo,
+                deliveryDate: deliveryDate,
+                categoryId: category,
+                userId: userId
+            })
+    
+            if(newReminder) {
+                res.json({ success: true })
+            } else {
+                res.json({ success: false })
+            }
         } else {
             res.json({ success: false })
         }
@@ -135,6 +141,55 @@ const handlerFunctions = {
 
         await user.save()
         res.json({ success: true })
+    },
+
+    checkReminder: async (req, res) => {
+        const {title} = req.body
+        const reminder = await Reminder.findOne({ where: { title: title } })
+
+        if(reminder) {
+            res.json({ success: true })
+        } else {
+            res.json({ success: false })
+        }
+    },
+
+    deleteSent: async (req, res) => {
+        const {title} = req.body
+        const reminder = await Reminder.findOne({ where: { title: title } })
+        await reminder.destroy()
+
+        res.json({ success: true })
+    },
+
+    updatedReminder: async (req, res) => {
+        const {title, category} = req.body
+        const reminder = await Reminder.findOne({ where: { title: title } })
+        const categoryName = await Category.findOne({ where: { categoryId: category }})
+
+        res.json({
+            message: reminder.body,
+            category: categoryName.name,
+            deliverTo: reminder.deliverTo
+        })
+    },
+
+    emailsToBeSent: async (req, res) => {
+        let id = req.session.userId
+        const emails = await Reminder.findAll({ where: { userId: id }})
+
+        const emailQueue = emails.filter((el) => {
+            const now = new Date().getTime()
+            const deliveryTime = new Date(el.deliveryDate).getTime()
+            if(deliveryTime - now <= 60000) {
+                return true
+            } else {
+                return false
+            }
+        })
+
+        res.send(emailQueue)
+
     }
 }
 
