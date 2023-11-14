@@ -24,6 +24,14 @@ User.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     },
     {
@@ -47,8 +55,7 @@ Reminder.init(
         },
         title: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
+            allowNull: false
         },
         body: {
             type: DataTypes.TEXT,

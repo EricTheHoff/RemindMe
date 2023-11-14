@@ -2,8 +2,6 @@ import express from 'express'
 import session from 'express-session'
 import morgan from 'morgan'
 import ViteExpress from 'vite-express'
-import emailjs from '@emailjs/browser'
-import nodemailer from 'nodemailer'
 import sgMail from '@sendgrid/mail'
 import { Reminder } from './src/database/model.js'
 import handlerFunctions from './handlers.js'
@@ -11,22 +9,12 @@ import handlerFunctions from './handlers.js'
 const app = express()
 const port = 8000
 
-sgMail.setApiKey('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')
-
-// const transporter = nodemailer.createTransport({
-//     port: 465,
-//     host: 'smtp.gmail.com',
-//     auth: {
-//         user: 'hoffman.dev.testing@gmail.com',
-//         pass: 'dev_mtn_testing98!'
-//     },
-//     secure: true
-// })
 
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(session({ secret: 'asdhgqh4ir3h1213423', saveUninitialized: true, resave: false }))
+sgMail.setApiKey('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')
 
 const loginRequired = (req, res, next) => {
     if (!req.session.userId) {
@@ -39,7 +27,7 @@ const loginRequired = (req, res, next) => {
 app.post('/authenticate', handlerFunctions.authenticate)
 app.post('/create_account', handlerFunctions.createAccount)
 app.post('/check_user', handlerFunctions.checkUser)
-app.get('/get_id', handlerFunctions.getId)
+app.get('/get_user', handlerFunctions.getUser)
 app.get('/get_user', loginRequired, handlerFunctions.getUser)
 app.post('/edit_account/:id', loginRequired, handlerFunctions.editAccount)
 app.get('/check_status', handlerFunctions.checkStatus)
@@ -54,24 +42,6 @@ app.post('/delete_sent', handlerFunctions.deleteSent)
 app.post('/new_reminder', loginRequired, handlerFunctions.newReminder)
 app.post('/logout', loginRequired, handlerFunctions.logout)
 app.get('/emails_to_send', handlerFunctions.emailsToBeSent)
-// app.post('/test', (req, res) => {
-//     const {title, message, category, deliverTo} = req.body
-//     emailjs.send("service_dlkmluu", "template_ani6abo", {
-//         title: title,
-//         message: message,
-//         category: category,
-//         deliverTo: deliverTo
-//     }, "I2V2mOJVRUQv4kj5Q")
-//     .then(() => {
-//         console.log(`Email has been sent to ${deliverTo}.`)
-//         res.json({ success: true })
-//     })
-//     .catch((error) => {
-//         console.log(`An error has occurred: ${error}`)
-//         res.json({ success: false })
-//     })
-
-// })
 
 const emailsToBeSent = async () => {
     const emails = await Reminder.findAll()
@@ -95,38 +65,46 @@ setInterval(async () => {
     const emailNotices = await emailsToBeSent()
     console.log(emailNotices)
     emailNotices.forEach((el) => {
-        // emailjs.send("service_dlkmluu", "template_ani6abo", {
-        //     title: el.title,
-        //     message: el.body,
-        //     category: el.categoryId,
-        //     deliverTo: el.deliverTo
-        // }, "I2V2mOJVRUQv4kj5Q")
-        // console.log(`Email has been sent to ${el.deliverTo}`)
+        switch (el.categoryId) {
+            case 1:
+                el.categoryId = 'Chores'
+                break
+            case 2:
+                el.categoryId = 'Errands'
+                break
+            case 3:
+                el.categoryId = 'Appointments'
+                break
+            case 4:
+                el.categoryId = 'Special Occasions'
+                break
+            case 5:
+                el.categoryId = 'Misc.'
+        }
         const emailData = {
             to: el.deliverTo,
-            from: 'hoffman.dev.testing@gmail.com',
-            subject: el.title,
-            text: el.body
-            // from: 'hoffman.dev.testing@gmail.com',
-            // to: el.deliverTo,
-            // subject: el.title,
-            // text: el.body
+            from: {
+                name: 'Remind-Me',
+                email: 'hoffman.dev.testing@gmail.com'
+            },
+            templateId: 'd-4bda1401e94b46d2b9b7b8c02c37a968',
+            dynamicTemplateData: {
+                subject: el.title,
+                body: el.body,
+                category: el.categoryId
+            }
         }
         sgMail.send(emailData)
-        .then(() => {
-            console.log(`Email has been sent to ${el.deliverTo}`)
+        .then(async () => {
+            console.log(`${el.title} has been sent to ${el.deliverTo}`)
+            const reminder = await Reminder.findOne({ where: { reminderId: el.reminderId } })
+            await reminder.destroy()
+            console.log(`The following reminder has been removed from the DB: ${el.title}`)
         })
         .catch((error) => {
             console.log(`An error has occurred: ${error}`)
         })
-        // transporter.sendMail(emailData, (error, info) => {
-        //     if(error) {
-        //         console.log(`An error has occurred: ${error}`)
-        //     } else {
-        //         console.log(`Info: ${info}`)
-        //     }
-        // })
     })
-}, 30000)
+}, 60000)
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`))

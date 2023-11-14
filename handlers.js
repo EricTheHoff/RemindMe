@@ -26,8 +26,10 @@ const handlerFunctions = {
     },
 
     createAccount: async (req, res) => {
-        const { email, password } = req.body
+        const { email, password, firstName, lastName } = req.body
         const newUser = await User.create({
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             password: password
         })
@@ -65,7 +67,7 @@ const handlerFunctions = {
     },
 
     checkUser: async (req, res) => {
-        const { email, password } = req.body
+        const { email } = req.body
         const user = await User.findOne({ where: { email: email } })
 
         if(user) {
@@ -82,9 +84,11 @@ const handlerFunctions = {
         }
     },
 
-    getId: async (req, res) => {
+    getUser: async (req, res) => {
         const id = req.session.userId
-        res.json({ id: id })
+        const user = await User.findOne({ where: { userId: id }})
+
+        res.json({ id: id, firstName: user.firstName })
     },
 
     getReminders: async (req, res) => {
@@ -134,10 +138,19 @@ const handlerFunctions = {
 
     editAccount: async (req, res) => {
         const { id } = req.params
-        const { email } = req.body
+        const { email, password, firstName, lastName } = req.body
         const user = await User.findOne({ where: { userId: id } })
 
-        user.email = email
+        if(password === '') {
+            user.email = email
+            user.firstName = firstName
+            user.lastName = lastName
+        } else {
+            user.email = email
+            user.password = password
+            user.firstName = firstName
+            user.lastName = lastName
+        }
 
         await user.save()
         res.json({ success: true })

@@ -1,4 +1,4 @@
-const initialState = { auth: false, activeUser: null }
+const initialState = { auth: false, activeUser: null, firstName: null }
 
 const loggedIn = (state = initialState, action) => {
     switch (action.type) {
@@ -21,6 +21,16 @@ const loggedIn = (state = initialState, action) => {
             return {
                 ...state,
                 activeUser: null
+            }
+        case 'First Name Active':
+            return {
+                ...state,
+                firstName: action.payload
+            }
+        case 'First Name Inactive':
+            return {
+                ...state,
+                firstName: null
             }
         default:
             return state

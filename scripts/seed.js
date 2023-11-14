@@ -8,7 +8,9 @@ console.log(`Seeding DB...`)
 let seedUsers = []
 const testUser = User.create({
     email: 'test@test.com',
-    password: 'test'
+    password: 'test',
+    firstName: 'Test',
+    lastName: 'User'
 })
 seedUsers.push(testUser)
 

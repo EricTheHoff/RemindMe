@@ -8,6 +8,7 @@ const RootPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const auth = useSelector((state) => state.auth)
+  const firstName = useSelector((state) => state.firstName)
 
   const saveToSession = async () => {
     await axios.get('/check_status')
@@ -17,8 +18,9 @@ const RootPage = () => {
     saveToSession()
     .then( async () => {
       dispatch({ type: 'Logged In'})
-      const activeId = await axios.get('/get_id')
-      dispatch({ type: 'Active User', payload: activeId.data.id })
+      const activeUser = await axios.get('/get_user')
+      dispatch({ type: 'Active User', payload: activeUser.data.id })
+      dispatch({ type: 'First Name Active', payload: activeUser.data.firstName })
     })
   },[])
 
@@ -37,7 +39,7 @@ const RootPage = () => {
   if (auth === true) {
     return (
       <>
-      <h1>Welcome to Remind Me</h1>
+      <h1>Welcome to Remind Me, {firstName}</h1>
         <nav>
           <ul>
             <li>
