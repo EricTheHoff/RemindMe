@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import Reminder from '../components/Reminder.jsx'
 
@@ -17,9 +18,7 @@ const MyRemindersPage = () => {
   const deleteMode = async (reminderId) => {
     const deletion = await axios.delete(`/delete_reminder/${reminderId}`)
 
-    if (deletion.data.success) {
-      alert(`Reminder deleted.`)
-    } else {
+    if (!deletion.data.success) {
       console.log(deletion.data.error)
     }
 
@@ -200,11 +199,24 @@ const MyRemindersPage = () => {
     })
   },[filteredCategory])
 
+
   if (listedReminders.length === 0) {
     return (
       <>
         <h3>My Reminders</h3>
-        <p>It doesn't look like you have any reminders at the moment.</p>
+
+        <label htmlFor='filter'>Filter by Category: </label>
+          <select name='filter' id='filter' onChange={(e) => setFilteredCategory(e.target.value)}>
+              <option value='0' selected={true}>All</option>
+              <option value='1'>Chores</option>
+              <option value='2'>Errands</option>
+              <option value='3'>Appointments</option>
+              <option value='4'>Special Occasions</option>
+              <option value='5'>Misc.</option>
+          </select>
+
+        <p>It doesn't look like you have any reminders at the moment. <NavLink to='/new_reminder'>Click here</NavLink> to create a new reminder.</p>
+        <p>If you're expecting to see a reminder, ensure that the <b>Filter by Category</b> option is set to <b>All</b>.</p>
       </>
     )
   } else {

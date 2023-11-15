@@ -6,7 +6,9 @@ import axios from 'axios'
 
 const AccountPage = () => {
   const [emailVal, setEmailVal] = useState('')
-  const [passwordVal, setPasswordVal] = useState('')
+  const [currentPasswordVal, setCurrentPasswordVal] = useState('')
+  const [newPasswordVal, setNewPasswordVal] = useState('')
+  const [confirmPasswordVal, setConfirmPasswordVal] = useState('')
   const [firstNameVal, setFirstNameVal] = useState('')
   const [lastNameVal, setLastNameVal] = useState('')
   const [idVal, setIdVal] = useState(null)
@@ -14,10 +16,11 @@ const AccountPage = () => {
   const dispatch = useDispatch()
   let user
 
-  const changeMode = async () => {
+  const updateUser = async () => {
     const accountData = {
       email: emailVal,
-      password: passwordVal,
+      currentPassword: currentPasswordVal,
+      newPassword: newPasswordVal,
       firstName: firstNameVal,
       lastName: lastNameVal
     }
@@ -27,7 +30,7 @@ const AccountPage = () => {
       dispatch({ type: 'First Name Active', payload: firstNameVal })
       setEditMode(!editMode)
     } else {
-      alert(`Something went wrong: ${response.data.error}`)
+      alert(`Update failed. Please ensure that the you're entering the correct password into the Current Password field.`)
     }
   }
 
@@ -51,20 +54,25 @@ const AccountPage = () => {
       <Account
       email={emailVal}
       setEmail={setEmailVal}
-      password={passwordVal}
-      setPassword={setPasswordVal}
+      currentPassword={currentPasswordVal}
+      setCurrentPassword={setCurrentPasswordVal}
+      newPassword={newPasswordVal}
+      setNewPassword={setNewPasswordVal}
+      confirmPassword={confirmPasswordVal}
+      setConfirmPassword={setConfirmPasswordVal}
       firstName={firstNameVal}
       setFirstName={setFirstNameVal}
       lastName={lastNameVal}
       setLastName={setLastNameVal}
       isEditing={editMode}
+      updateUser={updateUser}
       />
 
       <br/>
 
       <AccountButtons
       isEditing={editMode}
-      changeMode={changeMode}
+      setIsEditing={setEditMode}
       />
     </>
   )

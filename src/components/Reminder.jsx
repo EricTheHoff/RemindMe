@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import ModeButtons from './ModeButtons.jsx'
 import Body from './reminder_components/Body.jsx'
@@ -14,10 +14,6 @@ const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, deleteMo
     const [deliverToVal, setDeliverToVal] = useState(deliverTo)
     const [deliveryDateVal, setDeliveryDateVal] = useState(deliveryDate)
     const [categoryVal, setCategoryVal] = useState(category)
-
-    useEffect(() => {
-        console.log(`Component Rendered: Reminder`)
-    },[])
 
     const changeMode = async () => {
         const reminder = {

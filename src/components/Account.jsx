@@ -1,34 +1,93 @@
-const Account = ({ email, setEmail, password, setPassword, firstName, setFirstName, lastName, setLastName, isEditing }) => {
+const Account = ({
+    email,
+    setEmail,
+    currentPassword,
+    setCurrentPassword,
+    newPassword,
+    setNewPassword,
+    confirmPassword,
+    setConfirmPassword,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    updateUser,
+    isEditing }) => {
     if (isEditing === true) {
         return (
             <>
             <h4>Account Information</h4>
-            First Name:
-            <input
+
+            <form onSubmit={(e) => {
+                e.preventDefault()
+                if (newPassword !== confirmPassword) {
+                    alert(`Passwords do not match. Please try again.`)
+                } else {
+                    updateUser()
+                }
+            }}>
+                <label htmlFor='firstName'>First Name: </label>
+                <input
                 type='text'
+                name='firstName'
+                id='firstName'
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-            />
-            Last Name:
-            <input
+                />
+
+                <label htmlFor='lastName'>Last Name: </label>
+                <input
                 type='text'
+                name='lastName'
+                id='lastName'
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-            />
-            <br/>
-            Email Address:
-            <input
-                type='text'
+                />
+
+                <br/>
+
+                <label htmlFor='email'>Email: </label>
+                <input
+                type='email'
+                name='email'
+                id='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-            />
-            <br/>
-            New Password:
-            <input
+                />
+
+                <br/>
+
+                <label htmlFor='currentPassword'>Current Password: </label>
+                <input
                 type='password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
+                name='currentPassword'
+                id='currentPassword'
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+
+                <label htmlFor='newPassword'>New Password: </label>
+                <input
+                type='password'
+                name='newPassword'
+                id='newPassword'
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                />
+
+                <label htmlFor='confirmPassword'>Confirm Password: </label>
+                <input
+                type='password'
+                name='confirmPassword'
+                id='confirmPassword'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+
+                <br/>
+
+                <button type='submit'>Save</button>
+            </form>
             </>
         )
     } else {

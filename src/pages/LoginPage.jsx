@@ -2,28 +2,27 @@ import axios from 'axios'
 import Login from '../components/Login.jsx'
 import NewAccount from '../components/NewAccount.jsx'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 const LoginPage = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    // const currentId = useSelector((state) => state.activeUser)
 
     const loginEvent = async (e, loginData) => {
         e.preventDefault()
-        const response = await axios.post('/authenticate', loginData)
-        const activeUser = await axios.get('/get_user')
-        
+        await axios.post('/authenticate', loginData)
 
-        if(response.data.success) {
-            console.log(`Login Successful`)
+        .then(async () => {
+            const activeUser = await axios.get('/get_user')
             dispatch({ type: 'Logged In' })
             dispatch({ type: 'Active User', payload: activeUser.data.userId })
-            // console.log(activeUser.data.userId)
-            // console.log(currentId)
             dispatch({ type: 'First Name Active', payload: activeUser.data.firstName })
             navigate('/reminders')
-        }
+        })
+        .catch((error) => {
+            console.log(`The following error has occurred: ${error.request.status}: ${error.request.statusText}`)
+            alert(`Login Failed. Please ensure that you've created an account and entered the correct password.`)
+        })
     }
 
     const newAccountEvent = async (e, newAccountData) => {
@@ -32,15 +31,13 @@ const LoginPage = () => {
 
         if(checkUser.data.success) {
             alert(`There is already an account registered to that email.`)
-
         } else {
             const response = await axios.post('/create_account', newAccountData)
             const activeUser = await axios.get('/get_user')
     
             if(response.data.success) {
-                console.log(`Account Created Successfully`)
                 dispatch({ type: 'Logged In' })
-                dispatch({ type: 'Active User', payload: activeUser.data.id })
+                dispatch({ type: 'Active User', payload: activeUser.data.userId })
                 dispatch({ type: 'First Name Active', payload: activeUser.data.firstName })
                 navigate('/reminders')
             }

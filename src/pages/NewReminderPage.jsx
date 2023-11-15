@@ -1,22 +1,26 @@
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import NewReminder from '../components/NewReminder'
 
 const NewReminderPage = () => {
+  const navigate = useNavigate()
 
     const addReminderEvent = async (e, reminderData) => {
         e.preventDefault()
 
         const response = await axios.post('/new_reminder', reminderData)
         if(response.data.success) {
-          alert(`Your Reminder has been successfully created.`)
+          if(confirm(`Your reminder has been created. Would you like to proceed to your Reminders List?`) === true) {
+            navigate('/reminders')
+          }
         } else {
-          alert(`An error has occurred. Please ensure that you don't have another reminder with the same title.`)
+          alert(`The following error has occurred: ${response.data.error}`)
         }
   }
 
   return (
     <>
-      <h4>Create new Reminders here!</h4>
+      <h4>Create a new reminder</h4>
       <NewReminder createReminder={addReminderEvent}/>
     </>
   )

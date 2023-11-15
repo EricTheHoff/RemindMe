@@ -8,9 +8,9 @@ const handlerFunctions = {
 
         if(user && user.password === password) {
             req.session.userId = user.userId
-            res.json({ success: true })
+            res.status(200).json({ success: true })
         } else {
-            res.json({ success: false })
+            res.status(401).json({ success: false })
         }
     },
 
@@ -36,31 +36,26 @@ const handlerFunctions = {
 
         if(newUser) {
             req.session.userId = newUser.userId
-            res.json({ success: true })
+            res.status(200).json({ success: true })
         } else {
-            res.json({ success: false })
+            res.status(400).json({ success: false })
         }
     },
 
     newReminder: async (req, res) => {
         const { title, body, deliverTo, deliveryDate, category, userId } = req.body
-        const doesReminderExist = await Reminder.findOne({ where: { title: title } })
 
-        if(!doesReminderExist) {
-            const newReminder = await Reminder.create({
-                title: title,
-                body: body,
-                deliverTo: deliverTo,
-                deliveryDate: deliveryDate,
-                categoryId: category,
-                userId: userId
-            })
-    
-            if(newReminder) {
-                res.json({ success: true })
-            } else {
-                res.json({ success: false })
-            }
+        const newReminder = await Reminder.create({
+            title: title,
+            body: body,
+            deliverTo: deliverTo,
+            deliveryDate: deliveryDate,
+            categoryId: category,
+            userId: userId
+        })
+
+        if(newReminder) {
+            res.json({ success: true })
         } else {
             res.json({ success: false })
         }
@@ -138,22 +133,35 @@ const handlerFunctions = {
 
     editAccount: async (req, res) => {
         const { id } = req.params
-        const { email, password, firstName, lastName } = req.body
+        const { email, currentPassword, newPassword, firstName, lastName } = req.body
         const user = await User.findOne({ where: { userId: id } })
 
-        if(password === '') {
+        if (newPassword === '') {
             user.email = email
             user.firstName = firstName
             user.lastName = lastName
+            await user.save()
+            res.json({ success: true })
+        } else if (currentPassword !== user.password) {
+            res.json({ success: false })
         } else {
             user.email = email
-            user.password = password
+            user.password = newPassword
             user.firstName = firstName
             user.lastName = lastName
+            await user.save()
+            res.json({ success: true })
         }
+    },
 
-        await user.save()
-        res.json({ success: true })
+    checkPassword: async (req, res) => {
+        const { newPassword, confirmPassword } = req.body
+
+        if (newPassword === confirmPassword) {
+            res.status(200).json({ success: true })
+        } else {
+            res.status(400).json({ success: false })
+        }
     },
 
     checkReminder: async (req, res) => {

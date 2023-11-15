@@ -1,14 +1,13 @@
-const AccountButtons = ({ isEditing, changeMode }) => {
+const AccountButtons = ({ isEditing, setIsEditing }) => {
     if (isEditing === true) {
         return (
             <>
-                <button onClick={changeMode}>Save</button>
             </>
         )
     } else {
         return (
             <>
-                <button onClick={changeMode}>Edit</button>
+                <button onClick={() => setIsEditing(true)}>Edit</button>
             </>
         )
     }
