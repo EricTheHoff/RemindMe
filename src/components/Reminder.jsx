@@ -23,7 +23,6 @@ const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, deleteMo
             deliveryDate: deliveryDateVal,
             category: categoryVal
         }
-        // await axios.get(`/reminders/${id}`)
         const response = await axios.post(`/update_reminder/${id}`, reminder)
         if (response.data.success) {
             setEditMode(!editMode)
@@ -32,7 +31,7 @@ const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, deleteMo
         }
     }
 
-  return (
+    return (
     <>
     <tr>
         <td>
@@ -80,7 +79,7 @@ const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, deleteMo
         
     </tr>
     </>
-  )
+    )
 }
 
 export default Reminder

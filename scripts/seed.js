@@ -1,4 +1,5 @@
 import { User, Category, db } from "../src/database/model.js"
+import bcrypt from 'bcryptjs'
 
 console.log(`Syncing DB...`)
 
@@ -6,9 +7,10 @@ await db.sync({ force: true })
 console.log(`Seeding DB...`)
 
 let seedUsers = []
+const hash = await bcrypt.hash('test', 12)
 const testUser = User.create({
     email: 'test@test.com',
-    password: 'test',
+    password: hash,
     firstName: 'Test',
     lastName: 'User'
 })

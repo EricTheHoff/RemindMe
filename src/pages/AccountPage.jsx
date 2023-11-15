@@ -51,6 +51,8 @@ const AccountPage = () => {
 
   return (
     <>
+      <h3>Account Information</h3>
+      
       <Account
       email={emailVal}
       setEmail={setEmailVal}

@@ -29,7 +29,6 @@ app.post('/create_account', handlerFunctions.createAccount)
 app.post('/check_user', handlerFunctions.checkUser)
 app.get('/get_user', handlerFunctions.getUser)
 app.get('/get_user', loginRequired, handlerFunctions.getUser)
-app.post('/check_password', loginRequired, handlerFunctions.checkPassword)
 app.post('/edit_account/:id', loginRequired, handlerFunctions.editAccount)
 app.get('/check_status', handlerFunctions.checkStatus)
 app.post('/save_session', handlerFunctions.saveToSession)
@@ -46,7 +45,6 @@ app.get('/emails_to_send', handlerFunctions.emailsToBeSent)
 
 const emailsToBeSent = async () => {
     const emails = await Reminder.findAll()
-    // console.log(emails)
 
     const emailQueue = emails.filter((el) => {
         const now = new Date().getTime()

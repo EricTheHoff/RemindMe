@@ -16,8 +16,6 @@ const Account = ({
     if (isEditing === true) {
         return (
             <>
-            <h4>Account Information</h4>
-
             <form onSubmit={(e) => {
                 e.preventDefault()
                 if (newPassword !== confirmPassword) {
@@ -93,7 +91,6 @@ const Account = ({
     } else {
         return (
             <>
-                <h4>Account Information</h4>
                 <p>Name: {firstName} {lastName}</p>
                 <p>Email: {email}</p>
             </>

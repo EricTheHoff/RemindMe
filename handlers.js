@@ -1,12 +1,14 @@
 import session from 'express-session'
 import { User, Reminder, Category } from './src/database/model.js'
+import bcrypt from 'bcryptjs'
 
 const handlerFunctions = {
     authenticate: async (req, res) => {
         const { email, password } = req.body
         const user = await User.findOne({ where: { email: email } })
+        const hashMatch = await bcrypt.compare(password, user.password)
 
-        if(user && user.password === password) {
+        if(user && hashMatch === true) {
             req.session.userId = user.userId
             res.status(200).json({ success: true })
         } else {
@@ -27,11 +29,15 @@ const handlerFunctions = {
 
     createAccount: async (req, res) => {
         const { email, password, firstName, lastName } = req.body
+
+        const salt = bcrypt.genSaltSync(12)
+        const hash = await bcrypt.hash(password, salt)
+
         const newUser = await User.create({
             firstName: firstName,
             lastName: lastName,
             email: email,
-            password: password
+            password: hash
         })
 
         if(newUser) {
@@ -135,6 +141,7 @@ const handlerFunctions = {
         const { id } = req.params
         const { email, currentPassword, newPassword, firstName, lastName } = req.body
         const user = await User.findOne({ where: { userId: id } })
+        const hashMatch = await bcrypt.compare(currentPassword, user.password)
 
         if (newPassword === '') {
             user.email = email
@@ -142,25 +149,18 @@ const handlerFunctions = {
             user.lastName = lastName
             await user.save()
             res.json({ success: true })
-        } else if (currentPassword !== user.password) {
+        } else if (hashMatch === false) {
             res.json({ success: false })
         } else {
+            const salt = bcrypt.genSaltSync(12)
+            const hash = await bcrypt.hash(newPassword, salt)
+
             user.email = email
-            user.password = newPassword
+            user.password = hash
             user.firstName = firstName
             user.lastName = lastName
             await user.save()
             res.json({ success: true })
-        }
-    },
-
-    checkPassword: async (req, res) => {
-        const { newPassword, confirmPassword } = req.body
-
-        if (newPassword === confirmPassword) {
-            res.status(200).json({ success: true })
-        } else {
-            res.status(400).json({ success: false })
         }
     },
 
