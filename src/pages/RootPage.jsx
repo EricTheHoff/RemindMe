@@ -19,7 +19,7 @@ const RootPage = () => {
     .then( async () => {
       dispatch({ type: 'Logged In'})
       const activeUser = await axios.get('/get_user')
-      dispatch({ type: 'Active User', payload: activeUser.data.id })
+      dispatch({ type: 'Active User', payload: activeUser.data.userId })
       dispatch({ type: 'First Name Active', payload: activeUser.data.firstName })
     })
   },[])

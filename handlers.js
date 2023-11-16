@@ -89,7 +89,7 @@ const handlerFunctions = {
         const id = req.session.userId
         const user = await User.findOne({ where: { userId: id }})
 
-        res.json({ id: id, firstName: user.firstName })
+        res.json({ userId: id, firstName: user.firstName })
     },
 
     getReminders: async (req, res) => {

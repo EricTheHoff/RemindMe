@@ -11,16 +11,38 @@ const NewReminder = ({ createReminder }) => {
 
   return (
     <form onSubmit={(e) => {
+      console.log(activeId)
+      if (confirm(`Would you like to send an SMS message with this reminder?`) === true) {
+        const phoneNumber = prompt(`Please enter a valid 10-digit US phone number.`)
+        // console.log(phoneNumber, phoneNumber.length)
+        if (phoneNumber.length !== 10) {
+          alert(`That is not a valid phone number. Please try again.`)
+          e.preventDefault()
+          return
+        } else {
+          let e164 = `+1${phoneNumber}`
+          console.log(e164)
+        }
+          createReminder(e, {
+              title: title,
+              body: message,
+              deliverTo: deliverTo,
+              deliveryDate: deliveryDate,
+              category: categorySelection.value,
+              userId: activeId
+          })
+      } else {
         createReminder(e, {
-            title: title,
-            body: message,
-            deliverTo: deliverTo,
-            deliveryDate: deliveryDate,
-            category: categorySelection.value,
-            userId: activeId
+          title: title,
+          body: message,
+          deliverTo: deliverTo,
+          deliveryDate: deliveryDate,
+          category: categorySelection.value,
+          userId: activeId
         })
+      }
     }}>
-        <label htmlFor='title'>Title:</label>
+        <label htmlFor='title'>Title: </label>
         <input
         type='text'
         name='title'
@@ -29,7 +51,7 @@ const NewReminder = ({ createReminder }) => {
         onChange={(e) => setTitle(e.target.value)}
         />
         
-        <label htmlFor='deliver_to'>Deliver To:</label>
+        <label htmlFor='deliver_to'>Deliver To: </label>
         <input
         type='email'
         name='deliver_to'
@@ -38,7 +60,7 @@ const NewReminder = ({ createReminder }) => {
         onChange={(e) => setDeliverTo(e.target.value)}
         />
 
-        <label htmlFor='delivery_date'>Delivery Date:</label>
+        <label htmlFor='delivery_date'>Delivery Date: </label>
         <input
         type='datetime-local'
         name='delivery_date'
@@ -47,7 +69,7 @@ const NewReminder = ({ createReminder }) => {
         onChange={(e) => setDeliveryDate(e.target.value)}
         />
 
-        <label htmlFor='message'>Message:</label>
+        <label htmlFor='message'>Message: </label>
         <input
         type='text'
         name='message'
@@ -56,7 +78,7 @@ const NewReminder = ({ createReminder }) => {
         onChange={(e) => setMessage(e.target.value)}
         />
 
-        <label htmlFor='category'>Category:</label>
+        <label htmlFor='category'>Category: </label>
         <select name='category' id='reminder_category'>
           <option disabled selected={true}>-Choose One-</option>
           <option value='1'>Chores</option>
@@ -66,10 +88,11 @@ const NewReminder = ({ createReminder }) => {
           <option value='5'>Misc.</option>
         </select>
 
+        <br/>
+
         <button type='submit'>Create Reminder</button>
     </form>
   )
-}
-  
+}  
 
 export default NewReminder
