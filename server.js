@@ -5,6 +5,7 @@ import ViteExpress from 'vite-express'
 import sgMail from '@sendgrid/mail'
 import { Reminder } from './src/database/model.js'
 import handlerFunctions from './handlers.js'
+import 'dotenv/config'
 
 const app = express()
 const port = 8000
@@ -14,7 +15,7 @@ app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(session({ secret: 'asdhgqh4ir3h1213423', saveUninitialized: true, resave: false }))
-sgMail.setApiKey('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')
+sgMail.setApiKey(process.env.REACT_APP_SENDGRID_API_KEY)
 
 const loginRequired = (req, res, next) => {
     if (!req.session.userId) {
@@ -86,7 +87,7 @@ setInterval(async () => {
                 name: 'Remind-Me',
                 email: 'hoffman.dev.testing@gmail.com'
             },
-            templateId: 'd-4bda1401e94b46d2b9b7b8c02c37a968',
+            templateId: process.env.REACT_APP_SENDGRID_TEMPLATE_KEY,
             dynamicTemplateData: {
                 subject: el.title,
                 body: el.body,

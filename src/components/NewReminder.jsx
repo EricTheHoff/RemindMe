@@ -11,27 +11,6 @@ const NewReminder = ({ createReminder }) => {
 
   return (
     <form onSubmit={(e) => {
-      console.log(activeId)
-      if (confirm(`Would you like to send an SMS message with this reminder?`) === true) {
-        const phoneNumber = prompt(`Please enter a valid 10-digit US phone number.`)
-        // console.log(phoneNumber, phoneNumber.length)
-        if (phoneNumber.length !== 10) {
-          alert(`That is not a valid phone number. Please try again.`)
-          e.preventDefault()
-          return
-        } else {
-          let e164 = `+1${phoneNumber}`
-          console.log(e164)
-        }
-          createReminder(e, {
-              title: title,
-              body: message,
-              deliverTo: deliverTo,
-              deliveryDate: deliveryDate,
-              category: categorySelection.value,
-              userId: activeId
-          })
-      } else {
         createReminder(e, {
           title: title,
           body: message,
@@ -40,7 +19,6 @@ const NewReminder = ({ createReminder }) => {
           category: categorySelection.value,
           userId: activeId
         })
-      }
     }}>
         <label htmlFor='title'>Title: </label>
         <input
@@ -50,6 +28,17 @@ const NewReminder = ({ createReminder }) => {
         required
         onChange={(e) => setTitle(e.target.value)}
         />
+
+        <label htmlFor='message'>Message: </label>
+        <input
+        type='text'
+        name='message'
+        id='message'
+        required
+        onChange={(e) => setMessage(e.target.value)}
+        />
+
+        <br/>
         
         <label htmlFor='deliver_to'>Deliver To: </label>
         <input
@@ -69,14 +58,7 @@ const NewReminder = ({ createReminder }) => {
         onChange={(e) => setDeliveryDate(e.target.value)}
         />
 
-        <label htmlFor='message'>Message: </label>
-        <input
-        type='text'
-        name='message'
-        id='message'
-        required
-        onChange={(e) => setMessage(e.target.value)}
-        />
+        <br/>
 
         <label htmlFor='category'>Category: </label>
         <select name='category' id='reminder_category'>
