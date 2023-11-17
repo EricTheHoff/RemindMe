@@ -7,79 +7,84 @@ import DeliverTo from './reminder_components/DeliverTo.jsx'
 import DeliveryDate from './reminder_components/DeliveryDate.jsx'
 import Title from './reminder_components/Title.jsx'
 
+
 const Reminder = ({ id, title, body, deliverTo, deliveryDate, category, deleteMode }) => {
-    const [editMode, setEditMode] = useState(false)
-    const [titleVal, setTitleVal] = useState(title)
-    const [bodyVal, setBodyVal] = useState(body)
-    const [deliverToVal, setDeliverToVal] = useState(deliverTo)
-    const [deliveryDateVal, setDeliveryDateVal] = useState(deliveryDate)
-    const [categoryVal, setCategoryVal] = useState(category)
+  const [editMode, setEditMode] = useState(false)
+  const [titleVal, setTitleVal] = useState(title)
+  const [bodyVal, setBodyVal] = useState(body)
+  const [deliverToVal, setDeliverToVal] = useState(deliverTo)
+  const [deliveryDateVal, setDeliveryDateVal] = useState(deliveryDate)
+  const [categoryVal, setCategoryVal] = useState(category)
 
-    const changeMode = async () => {
-        const reminder = {
-            title: titleVal,
-            body: bodyVal,
-            deliverTo: deliverToVal,
-            deliveryDate: deliveryDateVal,
-            category: categoryVal
-        }
-        const response = await axios.post(`/update_reminder/${id}`, reminder)
-        if (response.data.success) {
-            setEditMode(!editMode)
-        } else {
-            alert(`Something went wrong: ${response.data.error}`)
-        }
+  // editReminder: Makes a call to the server with the edited reminder information saved in an object in the request.
+  const editReminder = async () => {
+    const reminder = {
+      title: titleVal,
+      body: bodyVal,
+      deliverTo: deliverToVal,
+      deliveryDate: deliveryDateVal,
+      category: categoryVal
     }
+    const response = await axios.post(`/update_reminder/${id}`, reminder)
+    
+    if (response.data.success) {
+      setEditMode(!editMode)
+    } else {
+     alert(`Something went wrong: ${response.data.error}`)
+    }
+  }
 
-    return (
+  // Returning each cell of the reminder as an individual component so it's easier to edit them.
+  return (
     <>
-    <tr>
+      <tr>
         <td>
-            <Title
-            val={titleVal}
-            setVal={setTitleVal}
-            isEditing={editMode}
-            />
+          <Title
+          val={titleVal}
+          setVal={setTitleVal}
+          isEditing={editMode}
+          />
         </td>
         <td>
-            <Body
-            val={bodyVal}
-            setVal={setBodyVal}
-            isEditing={editMode}
-            />
+          <Body
+          val={bodyVal}
+          setVal={setBodyVal}
+          isEditing={editMode}
+          />
         </td>
         <td>
-            <DeliverTo
-            val={deliverToVal}
-            setVal={setDeliverToVal}
-            isEditing={editMode}
-            />
+          <DeliverTo
+          val={deliverToVal}
+          setVal={setDeliverToVal}
+          isEditing={editMode}
+          />
         </td>
         <td>
-            <DeliveryDate
-            val={deliveryDateVal}
-            setVal={setDeliveryDateVal}
-            isEditing={editMode}
-            />
+          <DeliveryDate
+          val={deliveryDateVal}
+          setVal={setDeliveryDateVal}
+          isEditing={editMode}
+          />
         </td>
         <td>
-            <Category
-            val={categoryVal}
-            setVal={setCategoryVal}
-            isEditing={editMode}
-            />
+          <Category
+          val={categoryVal}
+          setVal={setCategoryVal}
+          isEditing={editMode}
+          />
         </td>
 
-        <ModeButtons
-        isEditing={editMode}
-        changeMode={changeMode}
-        deleteMode={deleteMode}
-        id={id}
-        />
-        
-    </tr>
+      <ModeButtons
+      isEditing={editMode}
+      editReminder={editReminder}
+      deleteMode={deleteMode}
+      id={id}
+      />
+
+      </tr>
     </>
-    )
+  )
 }
+
 
 export default Reminder

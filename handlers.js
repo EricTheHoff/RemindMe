@@ -1,4 +1,3 @@
-import session from 'express-session'
 import { User, Reminder, Category } from './src/database/model.js'
 import bcrypt from 'bcryptjs'
 

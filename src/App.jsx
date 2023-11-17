@@ -12,6 +12,7 @@ import AccountPage from './pages/AccountPage.jsx'
 import NewReminderPage from './pages/NewReminderPage.jsx'
 import './App.css'
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
   <Route path='/' element={<RootPage/>}>
@@ -46,9 +47,10 @@ const router = createBrowserRouter(
   )
 )
 
-function App() {
 
+function App() {
   return <RouterProvider router={router}/>
 }
+
 
 export default App

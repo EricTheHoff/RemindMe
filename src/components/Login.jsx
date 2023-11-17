@@ -2,27 +2,29 @@ import { useState } from 'react'
 
 
 const Login = ({ userLogsIn }) => {
-    const [emailVal, setEmailVal] = useState('')
-    const [passwordVal, setPasswordVal] = useState('')
+  const [emailVal, setEmailVal] = useState('')
+  const [passwordVal, setPasswordVal] = useState('')
 
 
   return (
-    <form onSubmit={(e) => {
+    <>
+      <form onSubmit={(e) => {
         userLogsIn(e, {
-            email: emailVal,
-            password: passwordVal
+          email: emailVal,
+          password: passwordVal
         })
-    }}>
-        <label htmlFor='email'>Email</label>
+      }}>
+
+      <label htmlFor='email'>Email</label>
         <input
-        type='text'
+        type='email'
         name='email'
         id='email'
         required
         onChange={(e) => setEmailVal(e.target.value)}
         />
 
-        <label htmlFor='password'>Password</label>
+      <label htmlFor='password'>Password</label>
         <input
         type='password'
         name='password'
@@ -30,9 +32,13 @@ const Login = ({ userLogsIn }) => {
         required
         onChange={(e) => setPasswordVal(e.target.value)}
         />
-        <button type='submit'>Log In</button>
-    </form>
+
+      <button type='submit'>Log In</button>
+
+      </form>
+    </>
   )
 }
+
 
 export default Login

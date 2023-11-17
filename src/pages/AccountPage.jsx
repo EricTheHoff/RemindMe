@@ -4,6 +4,7 @@ import Account from '../components/Account.jsx'
 import AccountButtons from '../components/AccountButtons.jsx'
 import axios from 'axios'
 
+
 const AccountPage = () => {
   const [emailVal, setEmailVal] = useState('')
   const [currentPasswordVal, setCurrentPasswordVal] = useState('')
@@ -16,6 +17,26 @@ const AccountPage = () => {
   const dispatch = useDispatch()
   let user
 
+  // getAccount: This grabs information about the logged-in user and saves it to the empty {user} variable.
+  const getAccount = async () => {
+    const response = await axios.get('/get_user')
+    user = response.data
+  }
+
+  // useEffect: This hook is grabbing information about the logged-in user on render and updating state variables in this component with data received from the server's response.
+  useEffect(() => {
+    getAccount()
+
+    .then(() => {
+      setFirstNameVal(user.firstName)
+      setLastNameVal(user.lastName)
+      setEmailVal(user.email)
+      setIdVal(user.userId)
+    })
+  },[])
+  
+  // updateUser: This function calls the server and sends an object with the edited account information in the request.
+  // On success, a redux value is updated and the editMode is set back to false.
   const updateUser = async () => {
     const accountData = {
       email: emailVal,
@@ -34,20 +55,6 @@ const AccountPage = () => {
     }
   }
 
-  const getAccount = async () => {
-    const response = await axios.get('/get_user')
-    user = response.data
-  }
-
-  useEffect(() => {
-    getAccount()
-    .then(() => {
-      setFirstNameVal(user.firstName)
-      setLastNameVal(user.lastName)
-      setEmailVal(user.email)
-      setIdVal(user.userId)
-    })
-  },[])
 
   return (
     <>
@@ -79,5 +86,6 @@ const AccountPage = () => {
     </>
   )
 }
+
 
 export default AccountPage

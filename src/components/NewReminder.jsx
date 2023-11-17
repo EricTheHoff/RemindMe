@@ -1,16 +1,19 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-const NewReminder = ({ createReminder }) => {
-    const [title, setTitle] = useState('')
-    const [deliverTo, setDeliverTo] = useState('')
-    const [message, setMessage] = useState('')
-    const [deliveryDate, setDeliveryDate] = useState(null)
-    const activeId = useSelector((state) => state.activeUser)
-    const categorySelection = document.getElementById('reminder_category')
 
+const NewReminder = ({ createReminder }) => {
+  const [title, setTitle] = useState('')
+  const [deliverTo, setDeliverTo] = useState('')
+  const [message, setMessage] = useState('')
+  const [deliveryDate, setDeliveryDate] = useState(null)
+  const activeId = useSelector((state) => state.activeUser)
+  const categorySelection = document.getElementById('reminder_category')
+
+  // Reminder is being created on form submission.
   return (
-    <form onSubmit={(e) => {
+    <>
+      <form onSubmit={(e) => {
         createReminder(e, {
           title: title,
           body: message,
@@ -19,8 +22,9 @@ const NewReminder = ({ createReminder }) => {
           category: categorySelection.value,
           userId: activeId
         })
-    }}>
-        <label htmlFor='title'>Title: </label>
+      }}>
+
+      <label htmlFor='title'>Title: </label>
         <input
         type='text'
         name='title'
@@ -29,7 +33,7 @@ const NewReminder = ({ createReminder }) => {
         onChange={(e) => setTitle(e.target.value)}
         />
 
-        <label htmlFor='message'>Message: </label>
+      <label htmlFor='message'>Message: </label>
         <input
         type='text'
         name='message'
@@ -38,9 +42,9 @@ const NewReminder = ({ createReminder }) => {
         onChange={(e) => setMessage(e.target.value)}
         />
 
-        <br/>
-        
-        <label htmlFor='deliver_to'>Deliver To: </label>
+      <br/>
+
+      <label htmlFor='deliver_to'>Deliver To: </label>
         <input
         type='email'
         name='deliver_to'
@@ -49,7 +53,7 @@ const NewReminder = ({ createReminder }) => {
         onChange={(e) => setDeliverTo(e.target.value)}
         />
 
-        <label htmlFor='delivery_date'>Delivery Date: </label>
+      <label htmlFor='delivery_date'>Delivery Date: </label>
         <input
         type='datetime-local'
         name='delivery_date'
@@ -58,9 +62,9 @@ const NewReminder = ({ createReminder }) => {
         onChange={(e) => setDeliveryDate(e.target.value)}
         />
 
-        <br/>
+      <br/>
 
-        <label htmlFor='category'>Category: </label>
+      <label htmlFor='category'>Category: </label>
         <select name='category' id='reminder_category'>
           <option disabled selected={true}>-Choose One-</option>
           <option value='1'>Chores</option>
@@ -70,11 +74,14 @@ const NewReminder = ({ createReminder }) => {
           <option value='5'>Misc.</option>
         </select>
 
-        <br/>
+      <br/>
 
-        <button type='submit'>Create Reminder</button>
-    </form>
+      <button type='submit'>Create Reminder</button>
+
+      </form>
+    </>
   )
 }  
+
 
 export default NewReminder

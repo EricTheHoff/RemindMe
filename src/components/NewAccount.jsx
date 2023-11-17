@@ -2,27 +2,31 @@ import { useState } from 'react'
 
 
 const NewAccount = ({ createAccount }) => {
-    const [firstNameVal, setFirstNameVal] = useState('')
-    const [lastNameVal, setLastNameVal] = useState('')
-    const [emailVal, setEmailVal] = useState('')
-    const [passwordVal, setPasswordVal] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+  const [firstNameVal, setFirstNameVal] = useState('')
+  const [lastNameVal, setLastNameVal] = useState('')
+  const [emailVal, setEmailVal] = useState('')
+  const [passwordVal, setPasswordVal] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
+  // New account is being created on form submission. Before attempting to create the account, it will check to ensure that the password and confirm password values match.
   return (
-    <form onSubmit={(e) => {
+    <>
+      <form onSubmit={(e) => {
         e.preventDefault()
+
         if (passwordVal !== confirmPassword) {
-          alert(`Passwords do not match. Please try again.`)
+        alert(`Passwords do not match. Please try again.`)
         } else {
           createAccount(e, {
-              firstName: firstNameVal,
-              lastName: lastNameVal,
-              email: emailVal,
-              password: passwordVal
+            firstName: firstNameVal,
+            lastName: lastNameVal,
+            email: emailVal,
+            password: passwordVal
           })
         }
       }}>
-        <label htmlFor='firstName'>First Name: </label>
+
+      <label htmlFor='firstName'>First Name: </label>
         <input
         type='text'
         name='firstName'
@@ -31,7 +35,7 @@ const NewAccount = ({ createAccount }) => {
         onChange={(e) => setFirstNameVal(e.target.value)}
         />
 
-        <label htmlFor='lastName'>Last Name: </label>
+      <label htmlFor='lastName'>Last Name: </label>
         <input
         type='text'
         name='lastName'
@@ -40,9 +44,9 @@ const NewAccount = ({ createAccount }) => {
         onChange={(e) => setLastNameVal(e.target.value)}
         />
 
-        <br/>
+      <br/>
 
-        <label htmlFor='email'>Email: </label>
+      <label htmlFor='email'>Email: </label>
         <input
         type='email'
         name='email'
@@ -51,7 +55,7 @@ const NewAccount = ({ createAccount }) => {
         onChange={(e) => setEmailVal(e.target.value)}
         />
 
-        <label htmlFor='password'>Password: </label>
+      <label htmlFor='password'>Password: </label>
         <input
         type='password'
         name='password'
@@ -60,7 +64,7 @@ const NewAccount = ({ createAccount }) => {
         onChange={(e) => setPasswordVal(e.target.value)}
         />
 
-        <label htmlFor='confirm_password'>Confirm Password: </label>
+      <label htmlFor='confirm_password'>Confirm Password: </label>
         <input
         type='password'
         name='confirm_password'
@@ -69,11 +73,14 @@ const NewAccount = ({ createAccount }) => {
         onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
-        <br/>
+      <br/>
 
-        <button type='submit'>Create Account</button>
-    </form>
+      <button type='submit'>Create Account</button>
+
+      </form>
+    </>
   )
 }
+
 
 export default NewAccount

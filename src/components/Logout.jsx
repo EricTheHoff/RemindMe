@@ -1,9 +1,12 @@
 const Logout = ({ userLogsOut }) => {
   return (
-    <form onSubmit={userLogsOut}>
+    <>
+      <form onSubmit={userLogsOut}>
         <button type='submit'>Log Out</button>
-    </form>
+      </form>
+    </>
   )
 }
+
 
 export default Logout

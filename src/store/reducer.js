@@ -1,5 +1,6 @@
 const initialState = { auth: false, activeUser: null, firstName: null }
 
+
 const loggedIn = (state = initialState, action) => {
     switch (action.type) {
         case 'Logged In':
@@ -27,14 +28,10 @@ const loggedIn = (state = initialState, action) => {
                 ...state,
                 firstName: action.payload
             }
-        case 'First Name Inactive':
-            return {
-                ...state,
-                firstName: null
-            }
         default:
             return state
     }
 }
+
 
 export default loggedIn

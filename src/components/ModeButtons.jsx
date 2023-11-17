@@ -1,17 +1,20 @@
-
-
-const ModeButtons = ({ isEditing, changeMode, deleteMode, id }) => {
-
+const ModeButtons = ({ isEditing, editReminder, deleteMode, id }) => {
+  // Using a ternary to check if isEditing is set to {true} and render appropriately based off of that.
   return isEditing ? (
-    <td>
-        <button onClick={changeMode}>Save</button>
-    </td>
-  ) : (
-    <td>
-        <button onClick={changeMode}>Edit</button>
+    <>
+      <td>
+        <button onClick={editReminder}>Save</button>
+      </td>
+    </>
+      ) : (
+    <>
+      <td>
+        <button onClick={editReminder}>Edit</button>
         <button onClick={() => deleteMode(id)}>Delete</button>
-    </td>
+      </td>
+    </>
   )
 }
+
 
 export default ModeButtons
