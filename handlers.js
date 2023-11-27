@@ -80,7 +80,9 @@ const handlerFunctions = {
     checkStatus: async (req, res) => {
         if(req.session.userId) {
             const user = await User.findByPk(req.session.userId)
-            res.send({ email: user.email })
+            res.send({ email: user.email, success: true })
+        } else {
+          res.json({ success: false })
         }
     },
 

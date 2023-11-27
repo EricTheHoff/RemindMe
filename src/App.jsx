@@ -19,27 +19,27 @@ const router = createBrowserRouter(
     <Route index element={<AboutPage/>}/>
 
     <Route
-    path='/authenticate'
+    path='authenticate'
     element={<LoginPage/>}
     />
 
     <Route
-    path='/reminders'
+    path='reminders'
     element={<MyRemindersPage/>}
     />
 
     <Route
-    path='/about'
+    path='about'
     element={<AboutPage/>}
     />
 
     <Route
-    path='/new_reminder'
+    path='new_reminder'
     element={<NewReminderPage/>}
     />
 
     <Route
-    path='/account'
+    path='account'
     element={<AccountPage/>}
     />
 

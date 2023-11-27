@@ -207,8 +207,8 @@ const MyRemindersPage = () => {
     })
 
     .catch((error) => {
-      alert(`Something went wrong! Error: ${error}`)
-      console.log(error)
+      // alert(`!!!Something went wrong! Error: ${error}`)
+      // console.log(error)
     })
   },[filteredCategory])
 

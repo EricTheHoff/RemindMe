@@ -15,24 +15,27 @@ const AccountPage = () => {
   const [idVal, setIdVal] = useState(null)
   const [editMode, setEditMode] = useState(false)
   const dispatch = useDispatch()
-  let user
 
   // getAccount: This grabs information about the logged-in user and saves it to the empty {user} variable.
   const getAccount = async () => {
-    const response = await axios.get('/get_user')
-    user = response.data
+    await axios.get('/get_user')
+    // console.log(`This get_user has been hit`)
+    .then((response) => {
+      let user = response.data
+      setFirstNameVal(user.firstName)
+      setLastNameVal(user.lastName)
+      setEmailVal(user.email)
+      setIdVal(user.userId)
+    })
+    .catch((error) => {
+      console.log(`This has been hit`)
+    })
   }
 
   // useEffect: This hook is grabbing information about the logged-in user on render and updating state variables in this component with data received from the server's response.
   useEffect(() => {
     getAccount()
 
-    .then(() => {
-      setFirstNameVal(user.firstName)
-      setLastNameVal(user.lastName)
-      setEmailVal(user.email)
-      setIdVal(user.userId)
-    })
   },[])
   
   // updateUser: This function calls the server and sends an object with the edited account information in the request.

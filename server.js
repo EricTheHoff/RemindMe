@@ -7,9 +7,9 @@ import { Reminder } from './src/database/model.js'
 import handlerFunctions from './handlers.js'
 import 'dotenv/config'
 
+
 const app = express()
 const port = 8000
-
 
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
@@ -28,7 +28,7 @@ const loginRequired = (req, res, next) => {
 app.post('/authenticate', handlerFunctions.authenticate)
 app.post('/create_account', handlerFunctions.createAccount)
 app.post('/check_user', handlerFunctions.checkUser)
-app.get('/get_user', handlerFunctions.getUser)
+// app.get('/get_user', handlerFunctions.getUser)
 app.get('/get_user', loginRequired, handlerFunctions.getUser)
 app.post('/edit_account/:id', loginRequired, handlerFunctions.editAccount)
 app.get('/check_status', handlerFunctions.checkStatus)
