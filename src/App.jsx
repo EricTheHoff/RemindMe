@@ -5,6 +5,7 @@ import {
   createRoutesFromElements
 } from 'react-router-dom'
 import LoginPage from './pages/LoginPage.jsx'
+import NewAccount from './components/NewAccount.jsx'
 import RootPage from './pages/RootPage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import MyRemindersPage from './pages/MyRemindersPage.jsx'
@@ -19,27 +20,32 @@ const router = createBrowserRouter(
     <Route index element={<AboutPage/>}/>
 
     <Route
-    path='authenticate'
+    path='/authenticate'
     element={<LoginPage/>}
     />
 
     <Route
-    path='reminders'
+    path='/create_account'
+    element={<NewAccount/>}
+    />
+
+    <Route
+    path='/reminders'
     element={<MyRemindersPage/>}
     />
 
     <Route
-    path='about'
+    path='/about'
     element={<AboutPage/>}
     />
 
     <Route
-    path='new_reminder'
+    path='/new_reminder'
     element={<NewReminderPage/>}
     />
 
     <Route
-    path='account'
+    path='/account'
     element={<AccountPage/>}
     />
 

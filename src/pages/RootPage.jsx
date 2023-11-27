@@ -103,7 +103,7 @@ const RootPage = () => {
         </Container>
       </Navbar>
 
-      <h1>Welcome to Remind Me, {firstName}</h1>
+      <h1 className='text-center'>Welcome to Remind Me, {firstName}</h1>
       {/* <nav>
         <ul>
           <li>
@@ -131,15 +131,43 @@ const RootPage = () => {
   } else {
     return (
       <>
-      <h1>Welcome to Remind Me</h1>
-        <nav>
+      <Navbar expand='lg' className='bg-body-tertiary' data-bs-theme='dark'>
+        <Container fluid>
+          <Navbar.Brand href='/'>
+            <img
+              alt=''
+              src='/reminder-icon.png'
+              width='30'
+              height='30'
+              className='d-inline-block align-top'
+            />
+            Remind Me
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls='basic-navbar-nav'/>
+          <Navbar.Collapse id='basic-navbar-nav'>
+            <Nav className='me-auto'></Nav>
+            <Nav>
+
+              <LinkContainer to='/authenticate'>
+                <Nav.Link>Login</Nav.Link>
+              </LinkContainer>
+
+            </Nav>
+
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+
+      <h1 className='text-center'>Welcome to Remind Me</h1>
+        {/* <nav>
           <ul>
             <li>
               <NavLink to='/authenticate'>Log in</NavLink>
             </li>
           </ul>
         </nav>
-        <hr/>
+        <hr/> */}
         <main>
           <Outlet />
         </main>
