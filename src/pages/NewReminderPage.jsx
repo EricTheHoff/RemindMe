@@ -23,7 +23,6 @@ const NewReminderPage = () => {
 
   return (
     <>
-      <h3>Create a new reminder</h3>
       <NewReminder createReminder={addReminderEvent}/>
     </>
   )

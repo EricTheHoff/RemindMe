@@ -3,7 +3,7 @@ import Logout from '../components/Logout'
 import { useEffect } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Container, Nav, Navbar, Button, Form } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 
@@ -28,14 +28,6 @@ const RootPage = () => {
       dispatch({ type: 'Active User', payload: activeUser.data.userId })
       dispatch({ type: 'First Name Active', payload: activeUser.data.firstName })
     }
-
-    // .then(async () => {
-    // })
-  
-    // .catch((error) => {
-    //   alert(`Something went wrong! Error: ${error}`)
-    //   console.log(error)
-    // })
   }
 
   // useEffect: This hook runs the saveToSession function, then updates the redux store.

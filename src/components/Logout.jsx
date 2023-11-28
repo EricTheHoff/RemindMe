@@ -1,9 +1,12 @@
+import { Button, Form } from 'react-bootstrap'
+
+
 const Logout = ({ userLogsOut }) => {
   return (
     <>
-      <form onSubmit={userLogsOut}>
-        <button type='submit'>Log Out</button>
-      </form>
+    <Form onSubmit={userLogsOut}>
+      <Button variant='primary' type='submit'>Log Out</Button>
+    </Form>
     </>
   )
 }
