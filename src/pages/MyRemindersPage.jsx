@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+import { Col, Button, Row, Container, Card, Form, Table } from 'react-bootstrap'
 import axios from 'axios'
 import Reminder from '../components/Reminder.jsx'
 
@@ -216,7 +217,40 @@ const MyRemindersPage = () => {
   if (listedReminders.length === 0) {
     return (
       <>
-        <h3>My Reminders</h3>
+      <Container>
+        <Row className='justify-content-center'>
+          <h2 className='text-center pb-3'>My Reminders</h2>
+          <Col className='text-center' lg={4}>
+
+            <Form>
+              <Form.Group className='mb-3' controlId='filter'>
+                <Form.Label>Filter by Category</Form.Label>
+                <Form.Select className='shadow' id='filter' onChange={(e) => setFilteredCategory(e.target.value)}>
+                  <option value='0' selected={true}>All</option>
+                  <option value='1'>Chores</option>
+                  <option value='2'>Errands</option>
+                  <option value='3'>Appointments</option>
+                  <option value='4'>Special Occasions</option>
+                  <option value='5'>Misc.</option>
+                </Form.Select>
+              </Form.Group>
+            </Form>
+
+          </Col>
+
+            <div className='text-center'>
+              <p>It doesn't look like you have any reminders at the moment. <NavLink to='/new_reminder'>Click here</NavLink> to create a new reminder.</p>
+              <p>If you're expecting to see a reminder, ensure that the <b>Filter by Category</b> option is set to <b>All</b>.</p>
+            </div>
+
+        </Row>
+      </Container>
+
+
+
+
+
+        {/* <h3>My Reminders</h3>
 
         <label htmlFor='filter'>Filter by Category: </label>
           <select name='filter' id='filter' onChange={(e) => setFilteredCategory(e.target.value)}>
@@ -229,13 +263,54 @@ const MyRemindersPage = () => {
           </select>
 
         <p>It doesn't look like you have any reminders at the moment. <NavLink to='/new_reminder'>Click here</NavLink> to create a new reminder.</p>
-        <p>If you're expecting to see a reminder, ensure that the <b>Filter by Category</b> option is set to <b>All</b>.</p>
+        <p>If you're expecting to see a reminder, ensure that the <b>Filter by Category</b> option is set to <b>All</b>.</p> */}
       </>
     )
   } else {
     return (
       <>
-        <h3>My Reminders</h3>
+      <Container fluid>
+        <Row className='justify-content-center'>
+        <h2 className='text-center pb-3'>My Reminders</h2>
+          <Col className='text-center' lg={4}>
+
+            <Form>
+              <Form.Group className='mb-3' controlId='filter'>
+                <Form.Label>Filter by Category</Form.Label>
+                <Form.Select className='shadow' id='filter' onChange={(e) => setFilteredCategory(e.target.value)}>
+                  <option value='0' selected={true}>All</option>
+                  <option value='1'>Chores</option>
+                  <option value='2'>Errands</option>
+                  <option value='3'>Appointments</option>
+                  <option value='4'>Special Occasions</option>
+                  <option value='5'>Misc.</option>
+                </Form.Select>
+              </Form.Group>
+            </Form>
+
+          </Col>
+        </Row>
+        <div className='border border-3 border-primary'></div>
+        <Table className='text-center' hover>
+          <tbody>
+            <tr>
+              <th>Title</th>
+              <th>Message</th>
+              <th>Deliver To</th>
+              <th>Delivery Time</th>
+              <th>Category</th>
+              <th></th>
+            </tr>
+          </tbody>
+          <tbody>
+            {listedReminders}
+          </tbody>
+        </Table>
+      </Container>
+
+
+
+        {/* <h3>My Reminders</h3>
 
         <label htmlFor='filter'>Filter by Category: </label>
           <select name='filter' id='filter' onChange={(e) => setFilteredCategory(e.target.value)}>
@@ -260,7 +335,7 @@ const MyRemindersPage = () => {
           <tbody>
             {listedReminders}
           </tbody>
-          </table>
+          </table> */}
       </>
     )
   }

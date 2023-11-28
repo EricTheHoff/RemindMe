@@ -1,16 +1,19 @@
+import { Button } from 'react-bootstrap'
+
+
 const ModeButtons = ({ isEditing, editReminder, deleteMode, id }) => {
   // Using a ternary to check if isEditing is set to {true} and render appropriately based off of that.
   return isEditing ? (
     <>
       <td>
-        <button onClick={editReminder}>Save</button>
+        <Button variant='primary' onClick={editReminder}>Save</Button>
       </td>
     </>
       ) : (
     <>
       <td>
-        <button onClick={editReminder}>Edit</button>
-        <button onClick={() => deleteMode(id)}>Delete</button>
+        <Button variant='primary' onClick={editReminder}>Edit</Button>
+        <Button variant='danger' onClick={() => deleteMode(id)}>Delete</Button>
       </td>
     </>
   )
