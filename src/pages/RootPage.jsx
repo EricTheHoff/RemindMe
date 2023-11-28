@@ -103,7 +103,8 @@ const RootPage = () => {
         </Container>
       </Navbar>
 
-      <h1 className='text-center'>Welcome to Remind Me, {firstName}</h1>
+      <h1 className='text-center py-4'>Welcome to Remind Me, {firstName}</h1>
+
       {/* <nav>
         <ul>
           <li>
@@ -159,7 +160,7 @@ const RootPage = () => {
       </Navbar>
 
 
-      <h1 className='text-center'>Welcome to Remind Me</h1>
+      <h1 className='text-center py-3'>Welcome to Remind Me</h1>
         {/* <nav>
           <ul>
             <li>
