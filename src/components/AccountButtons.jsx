@@ -1,3 +1,6 @@
+import { Button } from 'react-bootstrap'
+
+
 const AccountButtons = ({ isEditing, setIsEditing }) => {
   // Using a ternary to check if isEditing is set to {true} and render appropriately based off of that.
   return isEditing ? (
@@ -5,7 +8,7 @@ const AccountButtons = ({ isEditing, setIsEditing }) => {
     </>
   ) : (
     <>
-      <button onClick={() => setIsEditing(true)}>Edit</button>
+      <Button variant='primary' onClick={() => setIsEditing(true)}>Edit</Button>
     </>
   )
 }

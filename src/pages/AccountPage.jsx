@@ -61,7 +61,7 @@ const AccountPage = () => {
 
   return (
     <>
-      <h3>Account Information</h3>
+      {/* <h3>Account Information</h3> */}
       
       <Account
       email={emailVal}
@@ -77,15 +77,16 @@ const AccountPage = () => {
       lastName={lastNameVal}
       setLastName={setLastNameVal}
       isEditing={editMode}
+      setIsEditing={setEditMode}
       updateUser={updateUser}
       />
 
-      <br/>
+      {/* <br/>
 
       <AccountButtons
       isEditing={editMode}
       setIsEditing={setEditMode}
-      />
+      /> */}
     </>
   )
 }
