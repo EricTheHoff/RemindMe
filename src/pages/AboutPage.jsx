@@ -11,11 +11,13 @@ const AboutPage = () => {
       <Row>
         <Col lg={8} className='mx-auto'>
           <div className='border border-3 border-primary'></div>
-            <Card className='shadow'>
-              <Card.Title className='pt-2 fs-2 fst-italic'>What have you forgotten today?</Card.Title>
+            <Card className='shadow bg-default'>
+              <div className='tcolor-w'>
+                <Card.Title className='pt-2 fs-2 fst-italic'>What have you forgotten today?</Card.Title>
+              </div>
 
               <Card.Body>
-                This app allows you to create customized reminder notifications for anything; forgot to do the dishes yesterday? No problem! Didn't remember to pick up the kids after work? Bigger problem, but still! Simply create an account and add a reminder for any event relevant to you!
+                <p className='tcolor-w'>This app allows you to create customized reminder notifications for anything; forgot to do the dishes yesterday? No problem! Didn't remember to pick up the kids after work? Bigger problem, but still! Simply create an account and add a reminder for any event relevant to you!</p>
               </Card.Body>
 
               <div className='text-center'>
@@ -25,19 +27,18 @@ const AboutPage = () => {
         </Col>
       </Row>
 
-
       <Modal show={show} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className='bg-default tcolor-w'>
           <Modal.Title className='text-center'>Remind Me is built with the following technologies:</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
+        <Modal.Body className='bg-default'>
           <ListGroup className='text-center'>
-            <ListGroup.Item><a href='https://react.dev/learn'>React</a></ListGroup.Item>
-            <ListGroup.Item><a href='https://expressjs.com/'>Express</a></ListGroup.Item>
-            <ListGroup.Item><a href='https://www.postgresql.org/about/'>PostgreSQL</a></ListGroup.Item>
-            <ListGroup.Item><a href='https://react-bootstrap.netlify.app/docs/getting-started/introduction'>React Bootstrap</a></ListGroup.Item>
-            <ListGroup.Item><a href='https://sendgrid.com/en-us/solutions/email-api/smtp-service'>SendGrid</a></ListGroup.Item>
+            <ListGroup.Item className='bg-default'><a className='tcolor-w' href='https://react.dev/learn'>React</a></ListGroup.Item>
+            <ListGroup.Item className='bg-default'><a className='tcolor-w' href='https://expressjs.com/'>Express</a></ListGroup.Item>
+            <ListGroup.Item className='bg-default'><a className='tcolor-w' href='https://www.postgresql.org/about/'>PostgreSQL</a></ListGroup.Item>
+            <ListGroup.Item className='bg-default'><a className='tcolor-w' href='https://react-bootstrap.netlify.app/docs/getting-started/introduction'>React Bootstrap</a></ListGroup.Item>
+            <ListGroup.Item className='bg-default'><a className='tcolor-w' href='https://sendgrid.com/en-us/solutions/email-api/smtp-service'>SendGrid</a></ListGroup.Item>
           </ListGroup>
         </Modal.Body>
 

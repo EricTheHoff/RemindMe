@@ -6,13 +6,13 @@ const ModeButtons = ({ isEditing, editReminder, deleteMode, id }) => {
   return isEditing ? (
     <>
       <td>
-        <Button variant='primary' onClick={editReminder}>Save</Button>
+        <Button className='bg-default' onClick={editReminder}>Save</Button>
       </td>
     </>
       ) : (
     <>
       <td>
-        <Button variant='primary' onClick={editReminder}>Edit</Button>
+        <Button className='bg-default' onClick={editReminder}>Edit</Button>
         <Button variant='danger' onClick={() => deleteMode(id)}>Delete</Button>
       </td>
     </>

@@ -15,10 +15,10 @@ const Login = ({ userLogsIn }) => {
         <Col lg={6}>
           <div className='border border-3 border-primary'></div>
             <Card className='shadow'>
-              <Card.Body>
+              <Card.Body className='bg-default'>
 
-                <h2 className='fw-bold mb-2 text-uppercase text-center'>Login</h2>
-                <p className='mb-5 text-center'>Please enter your email and password.</p>
+                <h2 className='fw-bold mb-2 text-uppercase text-center tcolor-w'>Login</h2>
+                <p className='mb-5 text-center tcolor-w'>Please enter your email and password.</p>
                 <div className='mb-3'>
 
                   <Form onSubmit={(e) => {
@@ -29,12 +29,12 @@ const Login = ({ userLogsIn }) => {
                   }}>
 
                     <Form.Group className='mb-3' controlId='formBasicEmail'>
-                      <Form.Label>Email</Form.Label>
+                      <Form.Label className='tcolor-w'>Email</Form.Label>
                       <Form.Control type='email' placeholder='Enter email' onChange={(e) => setEmailVal(e.target.value)}/>
                     </Form.Group>
 
                     <Form.Group className='mb-3' controlId='formBasicPassword'>
-                      <Form.Label>Password</Form.Label>
+                      <Form.Label className='tcolor-w'>Password</Form.Label>
                       <Form.Control type='password' placeholder='Enter password' onChange={(e) => setPasswordVal(e.target.value)}/>
                     </Form.Group>
 
@@ -45,7 +45,7 @@ const Login = ({ userLogsIn }) => {
                   </Form>
 
                   <div className='mt-3'>
-                    <p className='mb-0 text-center'>Don't have an account? <NavLink to='/create_account'>Register here.</NavLink></p>
+                    <p className='mb-0 text-center tcolor-w'>Don't have an account? <NavLink className='tcolor-w' to='/create_account'>Register here.</NavLink></p>
                   </div>
 
                 </div>

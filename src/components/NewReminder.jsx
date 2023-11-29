@@ -19,8 +19,8 @@ const NewReminder = ({ createReminder }) => {
         <Col lg={6}>
           <div className='border border-3 border-primary'></div>
           <Card className='shadow'>
-            <Card.Body>
-              <h2 className='text-center'>Create a new Reminder</h2>
+            <Card.Body className='bg-default'>
+              <h2 className='text-center tcolor-w'>Create a new Reminder</h2>
               <div className='mb-3'>
 
                 <Form onSubmit={(e) => {
@@ -37,13 +37,13 @@ const NewReminder = ({ createReminder }) => {
                   <Row>
                     <Col>
                       <Form.Group className='mb-3' controlId='title'>
-                        <Form.Label>Title</Form.Label>
+                        <Form.Label className='tcolor-w'>Title</Form.Label>
                         <Form.Control type='text' placeholder='Groceries' onChange={(e) => setTitle(e.target.value)}/>
                       </Form.Group>
                     </Col>
                     <Col>
                       <Form.Group className='mb-3' controlId='message'>
-                        <Form.Label>Message</Form.Label>
+                        <Form.Label className='tcolor-w'>Message</Form.Label>
                         <Form.Control type='text' placeholder='Remember to pick up groceries.' onChange={(e) => setMessage(e.target.value)}/>
                       </Form.Group>
                     </Col>
@@ -52,13 +52,13 @@ const NewReminder = ({ createReminder }) => {
                   <Row>
                     <Col>
                       <Form.Group className='mb-3' controlId='email'>
-                        <Form.Label>Deliver To</Form.Label>
+                        <Form.Label className='tcolor-w'>Deliver To</Form.Label>
                         <Form.Control type='email' placeholder='email@example.com' onChange={(e) => setDeliverTo(e.target.value)}/>
                       </Form.Group>
                     </Col>
                     <Col>
                       <Form.Group className='mb-3' controlId='date'>
-                        <Form.Label>Delivery Date</Form.Label>
+                        <Form.Label className='tcolor-w'>Delivery Date</Form.Label>
                         <Form.Control type='datetime-local' onChange={(e) => setDeliveryDate(e.target.value)}/>
                       </Form.Group>
                     </Col>
@@ -67,7 +67,7 @@ const NewReminder = ({ createReminder }) => {
                   <Row>
                     <Col>
                       <Form.Group className='mb-3' controlId='category'>
-                        <Form.Label>Category</Form.Label>
+                        <Form.Label className='tcolor-w'>Category</Form.Label>
                         <Form.Select id='reminder_category'>
                           <option disabled selected={true}>-Choose One-</option>
                           <option value='1'>Chores</option>

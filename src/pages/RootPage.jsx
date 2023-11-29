@@ -54,7 +54,7 @@ const RootPage = () => {
   if (auth === true) {
     return (
       <>
-      <Navbar expand='lg' className='bg-body-tertiary' data-bs-theme='dark'>
+      <Navbar expand='lg' className='navbar-dark navbar-custom'>
         <Container fluid>
           <Navbar.Brand href='/'>
             <img
@@ -95,7 +95,7 @@ const RootPage = () => {
         </Container>
       </Navbar>
 
-      <h1 className='text-center py-4'>Welcome to Remind Me, {firstName}</h1>
+      <h1 className='text-center py-4 tstroke'>Welcome to Remind Me, {firstName}</h1>
 
       {/* <nav>
         <ul>
@@ -124,7 +124,7 @@ const RootPage = () => {
   } else {
     return (
       <>
-      <Navbar expand='lg' className='bg-body-tertiary' data-bs-theme='dark'>
+      <Navbar expand='lg' className='navbar-dark navbar-custom'>
         <Container fluid>
           <Navbar.Brand href='/'>
             <img
@@ -152,7 +152,7 @@ const RootPage = () => {
       </Navbar>
 
 
-      <h1 className='text-center py-3'>Welcome to Remind Me</h1>
+      <h1 className='text-center py-3 tstroke'>Welcome to Remind Me</h1>
         {/* <nav>
           <ul>
             <li>

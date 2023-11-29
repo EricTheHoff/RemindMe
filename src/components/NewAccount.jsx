@@ -44,10 +44,10 @@ const NewAccount = () => {
         <Col lg={6}>
           <div className='border border-3 border-primary'></div>
             <Card className='shadow'>
-              <Card.Body>
+              <Card.Body className='bg-default'>
 
-                <h2 className='fw-bold mb-2 text-uppercase text-center'>Register</h2>
-                <p className='mb-5 text-center'>Please register with a preferred email and password.</p>
+                <h2 className='fw-bold mb-2 text-uppercase text-center tcolor-w'>Register</h2>
+                <p className='mb-5 text-center tcolor-w'>Please register with a preferred email and password.</p>
                 <div className='mb-3'>
 
                   <Form onSubmit={(e) => {
@@ -66,27 +66,27 @@ const NewAccount = () => {
                   }}>
 
                     <Form.Group className='mb-3' controlId='formBasicName'>
-                      <Form.Label>First Name</Form.Label>
+                      <Form.Label className='tcolor-w'>First Name</Form.Label>
                       <Form.Control type='text' placeholder='Enter first name' onChange={(e) => setFirstNameVal(e.target.value)}/>
                     </Form.Group>
 
                     <Form.Group className='mb-3' controlId='formBasicName'>
-                      <Form.Label>Last Name</Form.Label>
+                      <Form.Label className='tcolor-w'>Last Name</Form.Label>
                       <Form.Control type='text' placeholder='Enter last name' onChange={(e) => setLastNameVal(e.target.value)}/>
                     </Form.Group>
 
                     <Form.Group className='mb-3' controlId='formBasicEmail'>
-                      <Form.Label>Email</Form.Label>
+                      <Form.Label className='tcolor-w'>Email</Form.Label>
                       <Form.Control type='email' placeholder='Enter email' onChange={(e) => setEmailVal(e.target.value)}/>
                     </Form.Group>
 
                     <Form.Group className='mb-3' controlId='formBasicPassword'>
-                      <Form.Label>Password</Form.Label>
+                      <Form.Label className='tcolor-w'>Password</Form.Label>
                       <Form.Control type='password' placeholder='Enter password' onChange={(e) => setPasswordVal(e.target.value)}/>
                     </Form.Group>
 
                     <Form.Group className='mb-3' controlId='formBasicPassword'>
-                      <Form.Label>Confirm Password</Form.Label>
+                      <Form.Label className='tcolor-w'>Confirm Password</Form.Label>
                       <Form.Control type='password' placeholder='Confirm password' onChange={(e) => setConfirmPassword(e.target.value)}/>
                     </Form.Group>
 
@@ -97,7 +97,7 @@ const NewAccount = () => {
                   </Form>
 
                   <div className='m-3'>
-                    <p className='mb-0 text-center'>Already have an account? <NavLink to='/authenticate'>Login here.</NavLink></p>
+                    <p className='mb-0 text-center tcolor-w'>Already have an account? <NavLink className='tcolor-w' to='/authenticate'>Login here.</NavLink></p>
                   </div>
 
                 </div>
