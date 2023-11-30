@@ -19,7 +19,7 @@ const AboutPage = () => {
                   <div className='tcolor-w'>
                     <p>Remind Me allows you to create customized reminder notifications for anything!</p>
                     <p>Forgot to do the dishes yesterday? No problem! Didn't remember to pick up the kids after work? That might be a problem, but Remind Me can help with that!</p>
-                    <p>Simply create an account and add a reminders for anything you need!</p>
+                    <p>Simply create an account and add a reminder for anything you need!</p>
                   </div>
                 </Card.Body>
 

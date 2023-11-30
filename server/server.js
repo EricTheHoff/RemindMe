@@ -91,10 +91,11 @@ setInterval(async () => {
             case 5:
                 el.categoryId = 'Misc.'
         }
+        // USE THIS IF A DYNAMIC EMAIL TEMPLATE IS BEING USED
         const emailData = {
             to: el.deliverTo,
             from: {
-                name: 'Remind-Me',
+                name: 'Remind Me',
                 email: 'hoffman.dev.testing@gmail.com'
             },
             templateId: process.env.REACT_APP_SENDGRID_TEMPLATE_KEY,
@@ -104,6 +105,19 @@ setInterval(async () => {
                 category: el.categoryId
             }
         }
+
+        // USE THIS IF NO DYNAMIC EMAIL TEMPLATE IS BEING USED
+        // const emailData = {
+        //   to: el.deliverTo,
+        //   from: {
+        //     name: 'Remind Me',
+        //     email: 'hoffman.dev.testing@gmail.com'
+        //   },
+        //   subject: el.title,
+        //   text: el.categoryId + ` Reminder - ` + el.body,
+        // }
+
+
         sgMail.send(emailData)
         .then(async () => {
             console.log(`${el.title} has been sent to ${el.deliverTo}`)
