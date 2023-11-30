@@ -11,7 +11,6 @@ import AboutPage from './pages/AboutPage.jsx'
 import MyRemindersPage from './pages/MyRemindersPage.jsx'
 import AccountPage from './pages/AccountPage.jsx'
 import NewReminderPage from './pages/NewReminderPage.jsx'
-import './App.css'
 
 
 const router = createBrowserRouter(

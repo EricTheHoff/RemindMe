@@ -22,7 +22,7 @@ const LoginPage = () => {
     })
 
     .catch((error) => {
-      // console.log(`The following error has occurred: ${error.request.status}: ${error.request.statusText}`)
+      console.log(`The following error has occurred: ${error}`)
       alert(`Login Failed. Please ensure that you've created an account and entered the correct password.`)
     })
   }
@@ -31,9 +31,6 @@ const LoginPage = () => {
   return (
     <>
       <Login userLogsIn={loginEvent}/>
-{/* 
-      <h4>If you do not have an account, please create one here.</h4>
-      <NewAccount createAccount={newAccountEvent}/> */}
     </>
   )
 }

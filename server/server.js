@@ -3,20 +3,22 @@ import session from 'express-session'
 import morgan from 'morgan'
 import ViteExpress from 'vite-express'
 import sgMail from '@sendgrid/mail'
-import { Reminder } from './src/database/model.js'
-import handlerFunctions from './handlers.js'
+import { Reminder } from '../src/database/model.js'
+import controllerFunctions from './controller.js'
 import 'dotenv/config'
 
-
+// Express Server
 const app = express()
 const port = 8000
 
+// Middleware
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(session({ secret: 'asdhgqh4ir3h1213423', saveUninitialized: true, resave: false }))
 sgMail.setApiKey(process.env.REACT_APP_SENDGRID_API_KEY)
 
+// This function checks if a user is logged in. If they aren't, it sends back a 401.
 const loginRequired = (req, res, next) => {
     if (!req.session.userId) {
         res.status(401).json({ error: 'Unauthorized' })
@@ -25,25 +27,30 @@ const loginRequired = (req, res, next) => {
     }
 }
 
-app.post('/authenticate', handlerFunctions.authenticate)
-app.post('/create_account', handlerFunctions.createAccount)
-app.post('/check_user', handlerFunctions.checkUser)
-// app.get('/get_user', handlerFunctions.getUser)
-app.get('/get_user', loginRequired, handlerFunctions.getUser)
-app.post('/edit_account/:id', loginRequired, handlerFunctions.editAccount)
-app.get('/check_status', handlerFunctions.checkStatus)
-app.post('/save_session', handlerFunctions.saveToSession)
-app.get('/reminders/:id', loginRequired, handlerFunctions.editReminder)
-app.post('/update_reminder/:id', loginRequired, handlerFunctions.updateReminder)
-app.delete('/delete_reminder/:id', loginRequired, handlerFunctions.deleteReminder)
-app.get('/get_reminders', loginRequired, handlerFunctions.getReminders)
-app.post('/check_reminder', handlerFunctions.checkReminder)
-app.post('/updated_reminder', handlerFunctions.updatedReminder)
-app.post('/delete_sent', handlerFunctions.deleteSent)
-app.post('/new_reminder', loginRequired, handlerFunctions.newReminder)
-app.post('/logout', loginRequired, handlerFunctions.logout)
-app.get('/emails_to_send', handlerFunctions.emailsToBeSent)
+// Sever routes for logging in/creating an account.
+app.post('/authenticate', controllerFunctions.authenticate)
+app.get('/get_user', loginRequired, controllerFunctions.getUser)
+app.post('/check_user', controllerFunctions.checkUser)
+app.post('/create_account', controllerFunctions.createAccount)
 
+// Server routes for loading/managing reminders.
+app.get('/get_reminders', loginRequired, controllerFunctions.getReminders)
+app.post('/update_reminder/:id', loginRequired, controllerFunctions.updateReminder)
+app.delete('/delete_reminder/:id', loginRequired, controllerFunctions.deleteReminder)
+
+// Server route for creating reminders.
+app.post('/new_reminder', loginRequired, controllerFunctions.newReminder)
+
+// Server routes for viewing and editing account information.
+app.post('/edit_account/:id', loginRequired, controllerFunctions.editAccount)
+
+//Server route for saving a user's session.
+app.get('/check_status', controllerFunctions.checkStatus)
+
+//Server route for logging out.
+app.post('/logout', loginRequired, controllerFunctions.logout)
+
+// This function queries my database and creates a filtered array of reminders where the delivery date is between now and 60 seconds from now.
 const emailsToBeSent = async () => {
     const emails = await Reminder.findAll()
 
@@ -61,6 +68,9 @@ const emailsToBeSent = async () => {
     return emailQueue
 }
 
+// This interval is running every 60 seconds. On each iteration, it executes the {emailsToBeSent} function.
+// For each reminder, it creates an object with email data and sends the email through SendGrid.
+// After the email has been sent, the reminder is deleted.
 setInterval(async () => {
     const emailNotices = await emailsToBeSent()
     console.log(emailNotices)
@@ -106,5 +116,6 @@ setInterval(async () => {
         })
     })
 }, 60000)
+
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`))
