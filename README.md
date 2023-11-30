@@ -6,13 +6,13 @@ As our lives get more busy and chaotic, it becomes so much easier to forget thin
 **Remind Me** is a full-stack web application built by Eric Hoffman as his first personal capstone project with DevMountain. Currently, no mobile versions are offered.
 
 ## Table of Contents
-1. [Technologies and Frameworks](https://github.com/EricTheHoff/RemindMe#technologies)
+1. [Technologies and Frameworks](https://github.com/EricTheHoff/RemindMe#technologies-and-frameworks)
 
-2. [How to Run **Remind Me** Locally](https://github.com/EricTheHoff/RemindMe#run)
+2. [How to Run **Remind Me** Locally](https://github.com/EricTheHoff/RemindMe#how-to-run-remind-me-locally)
 
-3. [Using Your Own SendGrid API Key and Sender](https://github.com/EricTheHoff/RemindMe#api)
+3. [Using Your Own SendGrid API Key and Sender](https://github.com/EricTheHoff/RemindMe#using-your-own-sendgrid-api-key-and-sender)
 
-4. [How to Use **Remind Me**](https://github.com/EricTheHoff/RemindMe#use)
+4. [How to Use **Remind Me**](https://github.com/EricTheHoff/RemindMe#how-to-use-remind-me)
 
 ## Technologies and Frameworks
 * JavaScript
